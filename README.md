@@ -1,4 +1,4 @@
-# online-store-4
+# Sapato-frontend
 
 ## Project setup
 ```
