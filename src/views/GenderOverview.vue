@@ -125,9 +125,10 @@
             <p class="product-title">{{ product.name }}</p>
             <p><em>${{ product.price }}</em></p>
           </router-link>
-          <span class="cd-trigger">Quick View</span>
+          <span class="cd-trigger" @click="quickViewProduct(product)">Quick View</span>
         </li>
-      <div class="cd-quick-view">
+      </ul>
+    <div class="cd-quick-view" v-if="selectedProduct">
         <div class="cd-slider-wrapper">
           <ul class="cd-slider">
             <li class="selected">
@@ -142,11 +143,23 @@
         </div>
         <!-- cd-slider-wrapper -->
         <div class="cd-item-info">
-          <h2>Produt Title</h2>
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officia, omnis illo iste ratione. Numquam eveniet quo, ullam itaque expedita impedit. Eveniet, asperiores amet iste repellendus similique reiciendis, maxime laborum praesentium.</p>
+          <div class="" >
+            <h2>{{ selectedProduct.name }}</h2>
+            <button @click="addToCart(selectedProduct)" class="btn btn--grey">Add to Cart</button>
+            <p>Price: ${{ selectedProduct.price }}</p>
+            <p>Size: {{ selectedProduct.size }}</p>
+            <p>Color: {{ selectedProduct.color }}</p>
+            <p><em>{{ selectedProduct.quantity }} left in stock</em></p>
+            <h3>Details</h3>
+            <ul>
+              <li>Material: {{ selectedProduct.details.material }}</li>
+              <li>Fit: {{ selectedProduct.details.fit }}</li>
+              <li>Maintenance: {{ selectedProduct.details.maintenance }}</li>
+              <li v-if="selectedProduct.details.additional">Additional: {{ selectedProduct.details.additional }}</li>
+            </ul>
+          </div>
           <ul class="cd-item-action">
             <li>
-              <button class="add-to-cart">Add to cart</button></li>
             <li>
               <a href="#0">Learn more</a></li>
           </ul>
@@ -155,7 +168,6 @@
         <!-- cd-item-info -->
         <a href="#0" class="cd-close">Close</a>
       </div>
-      </ul>
       <div class="wrapper random-items-wrapper">
         <h2>Our Recommendations</h2>
         <p>Try these on for size!</p>
@@ -183,13 +195,14 @@
 
 <script>
 import { imagePath } from '@/mixins/imagePath.js'
+import {quickViewProduct} from "@/assets/js/main.js"
 import { all } from 'q';
 
 export default {
   name: "genderOverview",
-  mixins: [ imagePath ],
+  mixins: [ imagePath, quickViewProduct ],
   created() {
-    this.recommendRandomOutfit()
+    this.recommendRandomOutfit();
   },
   data () {
     return {
@@ -204,7 +217,8 @@ export default {
         {label: 'По убыванию цены', value: 2},
         {label: 'По новинкам', value: 3},
         {label: 'По скидкам', value: 4}
-      ]
+      ],
+      selectedProduct: null
     }
   },
   computed: {
@@ -237,14 +251,44 @@ export default {
       this.randomTopId = this.randomProductIdByCategory('Shirts')
       this.randomBottomId = this.randomProductIdByCategory('Pants')
       this.randomFootwearId = this.randomProductIdByCategory('Shoes')
+    },
+    bindEvents(){
+      $('.cd-item').on('mouseover', function(event) {
+        $(this).css({
+          'box-shadow': '5px 5px 5px 5px #eee'
+        });
+        var selected = $(this).children('.cd-trigger');
+        selected.css({
+          'opacity': 1,
+          'text-shadow': '2px 2px 5px'
+
+        });
+      });
+      $('.cd-item').on('mouseout', function(event) {
+        $(this).css({
+          'box-shadow': 'none',
+          'border': 'none'
+        });
+        var selected = $(this).children('.cd-trigger');
+        selected.css({'opacity': 0});
+      });
+    },
+    addToCart(product) {
+      this.$store.dispatch('addToCart', product.id)
+    },
+    quickViewProduct(product){
+      this.selectedProduct = product;
     }
+  },
+  mounted() {
+    this.bindEvents();
   }
 }
 </script>
 
 <style lang="scss">
 .gender-page {
-  padding-left: 162px;
+  padding-left: 224px;
 }
 .random-items-wrapper {
   background: #fafafa;
@@ -263,7 +307,7 @@ export default {
   list-style: none;
   display: flex;
   align-items: flex-start;
-  justify-content: center;
+  /*justify-content: center;*/
   flex-wrap: wrap;
 }
 .item-grid__item {

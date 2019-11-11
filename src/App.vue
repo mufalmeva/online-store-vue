@@ -56,4 +56,12 @@ a {
 ul li {
   list-style: none;
 }
+#like-product,#unlike-product {
+  margin-left: 15px;
+  cursor: pointer;
+}
+#like-product:hover,#unlike-product:hover {
+  height: 26px;
+  width: 26px;
+}
 </style>

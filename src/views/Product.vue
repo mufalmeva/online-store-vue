@@ -1,11 +1,13 @@
 <template>
-  <div>
+  <div class="gender-page">
     <section class="wrapper">
       <div class="flex-col">
         <img  class="flex-col--2" :src="makeImagePath(product)" alt="">
         <div class="flex-col--2" >
           <h2>{{ product.name }}</h2>
           <button @click="addToCart" class="btn btn--grey">Add to Cart</button>
+          <img v-show="showLike" @click="likeProductClick(true)" id="like-product" src="../assets/img/like.png" height="24" width="24" alt=""/>
+          <img v-show="!showLike" @click="likeProductClick(false)" id="unlike-product" src="../assets/img/unlike.png" height="24" width="24" alt=""/>
           <p>Price: ${{ product.price }}</p>
           <p>Size: {{ product.size }}</p>
           <p>Color: {{ product.color }}</p>
@@ -30,12 +32,16 @@ export default {
   mixins: [imagePath],
   data() {
     return {
+      showLike: false,
       product: this.$store.getters.product(this.$route.params.id)
     }
   },
   methods: {
     addToCart() {
       this.$store.dispatch('addToCart', this.$route.params.id)
+    },
+    likeProductClick(like){
+      this.showLike = !like;
     }
   }
 };
@@ -63,10 +69,10 @@ export default {
   transition: all .15s ease;
 }
 .btn--grey {
-  background-color: #2c3e50;
+  background-color: lightgreen!important;
   color: #FFF;
   &:hover, &:focus {
-    background-color: #42b983;
+    background-color: #42b983!important;
   }
 }
 </style>

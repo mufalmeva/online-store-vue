@@ -1,8 +1,14 @@
 <template>
-  <div class="wrapper">
+  <div class="wrapper container-fluid">
     <h1>Cart</h1>
     <div class="flex-col">
-      <ul class="cart-list">
+      <ul class="cart-list" style="label-align: center" v-if="!cartItemsCount">
+        <li class="">
+          Your cart is currently empty <br/>
+          <button class="btn btn--grey"> Go back to catalogue</button>
+        </li>
+      </ul>
+      <ul v-else>
         <li
           v-for="item in cartItems"
           :key="item.id"
@@ -23,7 +29,7 @@
           </div>
         </li>
       </ul>
-      <section class="total-section">
+      <section class="total-section"v-if="cartItemsCount">
         <ul class="total-section-list">
           <li class="total-section__item">
             <p class="total-section__item__label">{{ cartItemsCount }} items</p>
@@ -31,15 +37,7 @@
             </li>
           <li class="total-section__item">
             <p class="total-section__item__label">Shipping</p>
-            <select v-model="selectedShippingOption">
-              <option disabled value="">Please select an option</option>
-              <option
-                v-for="option in shippingOptionsArray"
-                :key="option.text"
-                :value="option.rate">
-                {{ option.text }} (${{ option.rate }})
-              </option>
-            </select>
+            <v-select v-model="selectedShippingOption" :options="shippingOptionsArray" style="min-width: 240px"></v-select>
           </li>
           <li class="total-section__item">
             <p class="total-section__item__label">Subtotal</p>
@@ -55,7 +53,7 @@
           </li>
         </ul>
         <button
-          :disabled="!this.selectedShippingOption"
+          :disabled="!this.selectedShippingOption.value"
           class="btn btn--grey total-section__checkout-button">
             Check out
         </button>
@@ -72,23 +70,26 @@ export default {
   data() {
     return {
       salesTax: 0.06,
-      selectedShippingOption: '',
+      selectedShippingOption: {
+        label: 'Please select an option',
+        value: null,
+      },
       shippingOptionsArray: [
         {
-          text: 'One day',
-          rate: 20,
+          label: 'One day',
+          value: 20,
         },
         {
-          text: 'Two days',
-          rate: 15,
+          label: 'Two days',
+          value: 15,
         },
         {
-          text: 'Three to five days',
-          rate: 10,
+          label: 'Three to five days',
+          value: 10,
         },
         {
-          text: 'One week or more',
-          rate: 5,
+          label: 'One week or more',
+          value: 5,
         },
       ],
     };
@@ -105,7 +106,7 @@ export default {
     },
     subtotal() {
       if (this.selectedShippingOption && this.cartItemsCount > 0) {
-        return Number(this.itemsSubtotal) + Number(this.selectedShippingOption);
+        return this.selectedShippingOption.value ? Number(this.itemsSubtotal) + Number(this.selectedShippingOption.value) : '---';
       }
       return '---';
     },
@@ -114,13 +115,13 @@ export default {
     },
     salesTaxApplied() {
       if (this.selectedShippingOption && this.cartItemsCount > 0) {
-        return (this.subtotal * this.salesTax).toFixed(2);
+        return this.selectedShippingOption.value ? (this.subtotal * this.salesTax).toFixed(2) : '---';
       }
       return '---';
     },
     total() {
       if (this.selectedShippingOption && this.cartItemsCount > 0) {
-        return Number(this.subtotal) + Number(this.salesTaxApplied);
+        return this.selectedShippingOption.value ? Number(this.subtotal) + Number(this.salesTaxApplied) : '---';
       }
       return '---';
     }
@@ -130,6 +131,15 @@ export default {
       this.$store.dispatch('removeFromCart', itemId);
     },
   },
+  watch: {
+    selectedShippingOption(newVal){
+      if (!newVal)
+        this.selectedShippingOption = {
+          label: 'Please select an option',
+          value: null,
+        };
+    }
+  }
 };
 </script>
 

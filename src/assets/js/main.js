@@ -5,6 +5,11 @@ jQuery(document).ready(function($){
 	var sliderFinalWidth = 400,
 		maxQuickWidth = 900;
 
+	$('#like-product').on('click', function (event) {
+		var attr = $('#like-product').attr('src');
+
+	});
+
 	$('.cd-item').on('mouseover', function(event) {
 		$(this).css({
 			'box-shadow': '5px 5px 5px 5px #eee'
@@ -177,3 +182,10 @@ jQuery(document).ready(function($){
 		});
 	}
 });
+export const quickViewProduct = {
+	methods:{
+		// quickViewProduct(product){
+		// 	console.log(product)
+		// }
+	}
+}

@@ -21,7 +21,7 @@
                 l-1.415,1.415L35.123,36.537C35.278,36.396,35.416,36.238,35.567,36.093z"></path>
             </svg>
         </span>
-        <router-link to="/cart" class="nav-items__item js-basket hover-opacity" custom-popup-link="dynamic_basket">
+        <router-link to="/profile" class="nav-items__item js-basket hover-opacity" custom-popup-link="dynamic_basket">
           <span class="d-inline-block">
           <svg fill="currentColor" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 55 55" style="enable-background:new 0 0 55 55; width: 1.8em; display: block;" xml:space="preserve">
         <path d="M55,27.5C55,12.337,42.663,0,27.5,0S0,12.337,0,27.5c0,8.009,3.444,15.228,8.926,20.258l-0.026,0.023l0.892,0.752
@@ -97,7 +97,7 @@ export default {
 
 <style scoped lang="scss">
 #nav {
-  padding: 30px;
+  padding: 30px 30px 10px 30px;;
   a {
     font-weight: bold;
     color: #2c3e50;
