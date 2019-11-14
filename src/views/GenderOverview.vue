@@ -119,13 +119,13 @@
       </div>
     </div>
     <ul class="wrapper item-grid cd-container">
-        <li v-for="product in productsByGender" :key="product.id" class="item-grid__item cd-item">
+        <li v-for="product in productsByGender" :key="product.id" @mouseover="bindEvent()" @mouseout="unbindEvent()" class="item-grid__item cd-item">
           <router-link :to="{ name: 'product', params: { id: product.id}}">
             <img class="product-image" :src="makeImagePath(product)" alt="">
             <p class="product-title">{{ product.name }}</p>
             <p><em>${{ product.price }}</em></p>
           </router-link>
-          <span class="cd-trigger" @click="quickViewProduct(product)">Quick View</span>
+          <span class="cd-trigger" @click="quickViewProduct(product, $event)">Quick View</span>
         </li>
       </ul>
     <div class="cd-quick-view" v-if="selectedProduct">
@@ -134,14 +134,11 @@
             <li class="selected">
               <img src="" alt="Product 1" /></li>
           </ul>
-          <!-- cd-slider -->
           <ul class="cd-slider-navigation">
             <li><a class="cd-next" href="#0">Prev</a></li>
             <li><a class="cd-prev" href="#0">Next</a></li>
           </ul>
-          <!-- cd-slider-navigation -->
         </div>
-        <!-- cd-slider-wrapper -->
         <div class="cd-item-info">
           <div class="" >
             <h2>{{ selectedProduct.name }}</h2>
@@ -163,9 +160,7 @@
             <li>
               <a href="#0">Learn more</a></li>
           </ul>
-          <!-- cd-item-action -->
         </div>
-        <!-- cd-item-info -->
         <a href="#0" class="cd-close">Close</a>
       </div>
       <div class="wrapper random-items-wrapper">
@@ -195,17 +190,18 @@
 
 <script>
 import { imagePath } from '@/mixins/imagePath.js'
-import {quickViewProduct} from "@/assets/js/main.js"
+import {viewProduct} from "@/assets/js/main.js"
 import { all } from 'q';
 
 export default {
   name: "genderOverview",
-  mixins: [ imagePath, quickViewProduct ],
+  mixins: [ imagePath, viewProduct ],
   created() {
     this.recommendRandomOutfit();
   },
   data () {
     return {
+      showLike: false,
       randomTopId: null,
       randomBottomId: null,
       randomFootwearId: null,
@@ -252,36 +248,15 @@ export default {
       this.randomBottomId = this.randomProductIdByCategory('Pants')
       this.randomFootwearId = this.randomProductIdByCategory('Shoes')
     },
-    bindEvents(){
-      $('.cd-item').on('mouseover', function(event) {
-        $(this).css({
-          'box-shadow': '5px 5px 5px 5px #eee'
-        });
-        var selected = $(this).children('.cd-trigger');
-        selected.css({
-          'opacity': 1,
-          'text-shadow': '2px 2px 5px'
-
-        });
-      });
-      $('.cd-item').on('mouseout', function(event) {
-        $(this).css({
-          'box-shadow': 'none',
-          'border': 'none'
-        });
-        var selected = $(this).children('.cd-trigger');
-        selected.css({'opacity': 0});
-      });
-    },
     addToCart(product) {
       this.$store.dispatch('addToCart', product.id)
     },
-    quickViewProduct(product){
-      this.selectedProduct = product;
+    likeProductClick(like){
+      this.showLike = !like;
     }
   },
   mounted() {
-    this.bindEvents();
+
   }
 }
 </script>
