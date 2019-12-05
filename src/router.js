@@ -5,6 +5,7 @@ import Product from "./views/Product.vue";
 import Cart from "./views/Cart.vue";
 import Profile from "./views/Profile";
 import GenderOverview from "./views/GenderOverview.vue";
+import PersonalData from "./views/PersonalData";
 
 Vue.use(Router);
 
@@ -34,17 +35,35 @@ export default new Router({
       }
     },
     {
-      path: '/profile/',
-      name: 'profile',
-      component: Profile,
+      path: '/profile',
+      redirect: '/profile/orders',
       meta: {
-        contentOnly: true
+        contentOnly: true,
+        isProfile: true
       }
     },
     {
       path: '/:gender/',
       name: 'gender-overview',
       component: GenderOverview,
+    },
+    {
+      path: '/profile/orders',
+      name: 'Profile',
+      component: Profile,
+      meta: {
+        contentOnly: true,
+        isProfile: true
+      },
+    },
+    {
+      path: '/profile/data',
+      name: 'PersonalData',
+      component: PersonalData,
+      meta: {
+        contentOnly: true,
+        isProfile: true
+      },
     }
   ]
 });

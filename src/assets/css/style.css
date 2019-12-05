@@ -478,3 +478,11 @@ Main components
   -moz-transition: -moz-transform .3s 0s, visibility 0s 0s;
   transition: transform .3s 0s, visibility 0s 0s;
 }
+.sidebar {
+  /*width: 224px;*/
+  padding: 5px;
+  /*position: absolute;*/
+  /*display: table-cell;*/
+  height: 100%;
+  margin: 0;
+}

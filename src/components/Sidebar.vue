@@ -1,6 +1,6 @@
 <template>
-    <aside class="sidebar">
-        <div class="container">
+    <aside class="col-md-3">
+        <div class="sidebar">
             <div class="sidebar-menu">
                 <h4 class="sidebar-menu-title">Categories</h4>
                 <router-link class="link" to="/">Boots <span class="cat-nav-cnt">4749</span></router-link><br/>
@@ -29,19 +29,6 @@
 </script>
 
 <style scoped>
-    .sidebar {
-        width: 224px;
-        padding: 5px;
-        position: absolute;
-        display: table-cell;
-        height: 100%;
-        letter-spacing: 0;
-        margin: 0;
-        font-size: 12px;
-        line-height: 18px;
-        font-family: 'Open Sans',sans-serif;
-        color: #222;
-    }
     .link {
         margin-bottom: 25px;
     }
@@ -51,7 +38,7 @@
         font-size: 9px;
     }
     .sidebar-menu {
-        margin: 0px 10px;
+        margin: 0 10px;
     }
     .sidebar-menu-title {
         margin-bottom: 50px;

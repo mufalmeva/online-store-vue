@@ -1,8 +1,13 @@
 <template>
   <div id="app">
     <Navbar></Navbar>
-    <Sidebar v-show="!contentOnly"></Sidebar>
-    <router-view/>
+    <div class="col-lg-12 col-md-12">
+      <div class="row">
+        <Sidebar v-show="!contentOnly"></Sidebar>
+        <ProfileSidebar v-show="contentOnly && isProfile"></ProfileSidebar>
+        <router-view/>
+      </div>
+    </div>
     <Footer></Footer>
   </div>
 </template>
@@ -11,18 +16,21 @@
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import Sidebar from "./components/Sidebar";
+import ProfileSidebar from "./components/ProfileSidebar";
 
 export default {
   name: 'app',
-  components: {Sidebar, Footer, Navbar },
+  components: {ProfileSidebar, Sidebar, Footer, Navbar },
   data: function () {
     return {
-      contentOnly: false
+      contentOnly: false,
+      isProfile: false
     }
   },
   methods: {
     checkLayout(route) {
       this.contentOnly = (route && route.meta && route.meta.contentOnly);
+      this.isProfile = (route && route.meta && route.meta.isProfile);
     },
   },
   created() {

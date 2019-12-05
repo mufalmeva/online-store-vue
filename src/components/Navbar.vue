@@ -13,13 +13,9 @@
         >Men</router-link
       >
       <div class="float-right ">
-        <span class="d-inline-block">
-            <svg fill="currentColor" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 53.627 53.627" style="enable-background:new 0 0 53.627 53.627; width: 1.6em; display: block;" xml:space="preserve">
-            <path d="M53.627,49.385L37.795,33.553C40.423,30.046,42,25.709,42,21C42,9.42,32.58,0,21,0S0,9.42,0,21s9.42,21,21,21
-                c4.709,0,9.046-1.577,12.553-4.205l15.832,15.832L53.627,49.385z M2,21C2,10.523,10.523,2,21,2s19,8.523,19,19s-8.523,19-19,19
-                S2,31.477,2,21z M35.567,36.093c0.178-0.172,0.353-0.347,0.525-0.525c0.146-0.151,0.304-0.29,0.445-0.445l14.262,14.262
-                l-1.415,1.415L35.123,36.537C35.278,36.396,35.416,36.238,35.567,36.093z"></path>
-            </svg>
+        <span>
+          <input class="search-container" type="text" placeholder="Search.." name="search"/>
+          <span class="focus-border"></span>
         </span>
         <router-link to="/profile" class="nav-items__item js-basket hover-opacity" custom-popup-link="dynamic_basket">
           <span class="d-inline-block">
@@ -91,11 +87,43 @@ export default {
     cartCount() {
       return this.$store.state.cart.length;
     }
+  },
+  mounted() {
+    $(document).on('focus', '.search-container', function (e) {
+      $('.focus-border').css({
+        'top': $(this).offset().top + $(this).height() + 1 +'px',
+        'left': $(this).offset().left + 'px',
+        'width': $(this).width() + 'px'
+      });
+      $('span[class=focus-border]').addClass('search-onfocus');
+    });
+    $(document).on('focusout', '.search-container', function (e) {
+      $('.focus-border').css({
+        'width': 0,
+      });
+      $('.focus-border').removeClass('search-onfocus');
+    });
   }
 };
 </script>
-
 <style scoped lang="scss">
+  .focus-border{
+    left: inherit; width: 0; height: 2px; background-color: #3399FF; transition: 0.4s;}
+  .search-container {
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    &:focus {
+      outline: none;
+      transition: outline 0.6s linear;
+    }
+  }
+  :focus{outline: none;}
+  .search-onfocus {
+    width: 100%;
+    transition: 0.4s;
+    position: absolute;
+  }
 #nav {
   padding: 30px 30px 10px 30px;;
   a {

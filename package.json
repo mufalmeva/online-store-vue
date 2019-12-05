@@ -16,6 +16,7 @@
     "jquery-ui": "^1.12.1",
     "modernizr": "^3.8.0",
     "popper.js": "^1.16.0",
+    "slick-carousel": "^1.8.1",
     "tar": "^4.4.8",
     "vue": "^2.6.10",
     "vue-router": "^3.0.6",

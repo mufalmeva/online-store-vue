@@ -1,46 +1,31 @@
 <template>
-    <div class="wrapper container-fluid">
-        <div class="col-md-12">
-            <h3>Profile</h3>
-            <div class="col-md-12">
-                <div class="row">
-                    <div class="col-md-3">
-                        <router-link class="link" to="/">Мои заказы</router-link><br/>
-                        <router-link class="link" to="/">Избранное</router-link><br/>
-                        <router-link class="link" to="/">Мои данные</router-link><br/>
-                        <router-link class="link" to="/">Подписки</router-link><br/>
-                        <router-link class="link" to="/">Отзывы и вопросы</router-link><br/>
-                    </div>
-                    <div class="col-md-9">
-                        <div class="">
-                            <ul class="nav nav-tabs">
-                                <li class="nav-item">
-                                    <a class="nav-link active" data-toggle="tab" href="#menu1">Текущие заказы</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" data-toggle="tab" href="#menu2">История заказов</a>
-                                </li>
-                            </ul>
-                            <div class="tab-content">
-                                <div id="home" class="container tab-pane active"><br>
-                                    <h3>HOME</h3>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                                </div>
-                                <div id="menu1" class="container tab-pane fade"><br>
-                                    <h3>Menu 1</h3>
-                                    <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-                                </div>
-                                <div id="menu2" class="container tab-pane fade"><br>
-                                    <h3>Menu 2</h3>
-                                    <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+    <section class="col-md-9">
+        <div class="wrapper">
+            <h3>My Orders</h3>
+            <ul class="nav nav-tabs">
+                <li class="nav-item">
+                    <a class="nav-link active" data-toggle="tab" href="#menu1">Текущие заказы</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="tab" href="#menu2">История заказов</a>
+                </li>
+            </ul>
+            <div class="tab-content">
+                <div id="home" class="container tab-pane active"><br>
+                    <h3>HOME</h3>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                </div>
+                <div id="menu1" class="container tab-pane fade"><br>
+                    <h3>Menu 1</h3>
+                    <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                </div>
+                <div id="menu2" class="container tab-pane fade"><br>
+                    <h3>Menu 2</h3>
+                    <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
                 </div>
             </div>
         </div>
-    </div>
+    </section>
 </template>
 
 <script>

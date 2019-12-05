@@ -1,5 +1,5 @@
 <template>
-  <div class="gender-page">
+  <div class=" col-lg-9 col-md-9">
     <section class="wrapper">
       <div class="flex-col">
         <img  class="flex-col--2" :src="makeImagePath(product)" alt="">

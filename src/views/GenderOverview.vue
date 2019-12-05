@@ -1,5 +1,5 @@
 <template>
-  <div class="gender-page">
+  <div class="col-lg-9 col-md-9">
     <h4 style="display: inline-block" class="wrapper">{{ pageTitle }}</h4>
     <div class="sortable">
       <v-select style="letter-spacing: 0; float: right; min-width: 192px" :options="options" v-model="selected"></v-select>
@@ -135,8 +135,8 @@
               <img src="" alt="Product 1" /></li>
           </ul>
           <ul class="cd-slider-navigation">
-            <li><a class="cd-next" href="#0">Prev</a></li>
-            <li><a class="cd-prev" href="#0">Next</a></li>
+            <li><a class="cd-next" href="javascript:void(0)">Prev</a></li>
+            <li><a class="cd-prev" href="javascript:void(0)">Next</a></li>
           </ul>
         </div>
         <div class="cd-item-info">
@@ -158,10 +158,10 @@
           <ul class="cd-item-action">
             <li>
             <li>
-              <a href="#0">Learn more</a></li>
+              <a href="javascript:void(0)" class="learn-more" @click="goToProduct(selectedProduct)">Learn more</a></li>
           </ul>
         </div>
-        <a href="#0" class="cd-close">Close</a>
+        <a href="javascript:void(0)" class="cd-close">Close</a>
       </div>
       <div class="wrapper random-items-wrapper">
         <h2>Our Recommendations</h2>
@@ -253,6 +253,10 @@ export default {
     },
     likeProductClick(like){
       this.showLike = !like;
+    },
+    goToProduct(selectedProduct){
+      $('body').removeClass('overlay-layer');
+      this.$router.push('products/'+selectedProduct.id);
     }
   },
   mounted() {

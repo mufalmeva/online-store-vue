@@ -10,6 +10,7 @@ import store from "./store";
 
 import 'bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css'
+import 'slick-carousel'
 import "@/assets/css/style.css";
 import "@/assets/js/velocity.min.js";
 import "@/assets/js/main.js";
