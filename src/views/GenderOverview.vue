@@ -120,7 +120,7 @@
     </div>
     <ul class="wrapper item-grid cd-container">
         <li v-for="product in productsByGender" :key="product.id" @mouseover="bindEvent()" @mouseout="unbindEvent()" class="item-grid__item cd-item">
-          <router-link :to="{ name: 'product', params: { id: product.id}}">
+          <router-link :to="{ name: 'product', params: {gender: gender, id: product.id}}">
             <img class="product-image" :src="makeImagePath(product)" alt="">
             <p class="product-title">{{ product.name }}</p>
             <p><em>${{ product.price }}</em></p>
@@ -128,40 +128,42 @@
           <span class="cd-trigger" @click="quickViewProduct(product, $event)">Quick View</span>
         </li>
       </ul>
-    <div class="cd-quick-view" v-if="selectedProduct">
-        <div class="cd-slider-wrapper">
-          <ul class="cd-slider">
-            <li class="selected">
-              <img src="" alt="Product 1" /></li>
-          </ul>
-          <ul class="cd-slider-navigation">
-            <li><a class="cd-next" href="javascript:void(0)">Prev</a></li>
-            <li><a class="cd-prev" href="javascript:void(0)">Next</a></li>
-          </ul>
-        </div>
-        <div class="cd-item-info">
-          <div class="" >
-            <h2>{{ selectedProduct.name }}</h2>
-            <button @click="addToCart(selectedProduct)" class="btn btn--grey">Add to Cart</button>
-            <p>Price: ${{ selectedProduct.price }}</p>
-            <p>Size: {{ selectedProduct.size }}</p>
-            <p>Color: {{ selectedProduct.color }}</p>
-            <p><em>{{ selectedProduct.quantity }} left in stock</em></p>
-            <h3>Details</h3>
-            <ul>
-              <li>Material: {{ selectedProduct.details.material }}</li>
-              <li>Fit: {{ selectedProduct.details.fit }}</li>
-              <li>Maintenance: {{ selectedProduct.details.maintenance }}</li>
-              <li v-if="selectedProduct.details.additional">Additional: {{ selectedProduct.details.additional }}</li>
+    <div class="cd-quick-view col-lg-12 col-md-12" v-if="selectedProduct">
+        <div class="row">
+          <div class="cd-slider-wrapper col-md-6 col-lg-6">
+            <ul class="cd-slider">
+              <li class="selected">
+                <img src="" alt="Product 1" /></li>
+            </ul>
+            <ul class="cd-slider-navigation">
+              <li><a class="cd-next" href="javascript:void(0)">Prev</a></li>
+              <li><a class="cd-prev" href="javascript:void(0)">Next</a></li>
             </ul>
           </div>
-          <ul class="cd-item-action">
-            <li>
-            <li>
-              <a href="javascript:void(0)" class="learn-more" @click="goToProduct(selectedProduct)">Learn more</a></li>
-          </ul>
+          <div class="cd-item-info col-md-6 col-lg-6">
+            <div class="" >
+              <h2>{{ selectedProduct.name }}</h2>
+              <button @click="addToCart(selectedProduct)" class="btn btn--grey">Add to Cart</button>
+              <p>Price: ${{ selectedProduct.price }}</p>
+              <v-select style="width: 200px" :options="optionsSize" v-model="selectedSize"></v-select>
+              <p>Color: {{ selectedProduct.color }}</p>
+              <p><em>{{ selectedProduct.quantity }} left in stock</em></p>
+              <h3>Details</h3>
+              <ul>
+                <li>Material: {{ selectedProduct.details.material }}</li>
+                <li>Fit: {{ selectedProduct.details.fit }}</li>
+                <li>Maintenance: {{ selectedProduct.details.maintenance }}</li>
+                <li v-if="selectedProduct.details.additional">Additional: {{ selectedProduct.details.additional }}</li>
+              </ul>
+            </div>
+            <ul class="cd-item-action">
+              <li>
+              <li>
+                <a href="javascript:void(0)" class="learn-more" @click="goToProduct(selectedProduct)">Learn more</a></li>
+            </ul>
+          </div>
+          <a href="javascript:void(0)" class="cd-close">Close</a>
         </div>
-        <a href="javascript:void(0)" class="cd-close">Close</a>
       </div>
       <div class="wrapper random-items-wrapper">
         <h2>Our Recommendations</h2>
@@ -213,6 +215,12 @@ export default {
         {label: 'По убыванию цены', value: 2},
         {label: 'По новинкам', value: 3},
         {label: 'По скидкам', value: 4}
+      ],
+      selectedSize: {value: 0, label: 'Small'},
+      optionsSize: [
+        {label: 'Small', value: 0},
+        {label: 'Medium', value: 1},
+        {label: 'Big', value: 2},
       ],
       selectedProduct: null
     }

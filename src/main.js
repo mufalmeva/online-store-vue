@@ -9,6 +9,7 @@ import store from "./store";
 // require("expose-loader?jQuery!jquery");
 
 import 'bootstrap'
+import '@fortawesome/fontawesome-free/css/all.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'slick-carousel'
 import "@/assets/css/style.css";
@@ -24,5 +25,8 @@ Vue.config.productionTip = false;
 new Vue({
   router,
   store,
+  icons: {
+    iconfont: 'fa',
+  },
   render: h => h(App)
 }).$mount("#app");

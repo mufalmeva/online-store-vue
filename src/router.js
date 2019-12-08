@@ -6,6 +6,7 @@ import Cart from "./views/Cart.vue";
 import Profile from "./views/Profile";
 import GenderOverview from "./views/GenderOverview.vue";
 import PersonalData from "./views/PersonalData";
+import WishListPage from "./views/WishListPage";
 
 Vue.use(Router);
 
@@ -22,7 +23,7 @@ export default new Router({
       }
     },
     {
-      path: '/products/:id',
+      path: '/:gender/products/:id',
       name: 'product',
       component: Product,
     },
@@ -60,6 +61,15 @@ export default new Router({
       path: '/profile/data',
       name: 'PersonalData',
       component: PersonalData,
+      meta: {
+        contentOnly: true,
+        isProfile: true
+      },
+    },
+    {
+      path: '/profile/wishlist',
+      name: 'WishListPage',
+      component: WishListPage,
       meta: {
         contentOnly: true,
         isProfile: true
