@@ -1,6 +1,6 @@
 <template>
   <div class="wrapper container-fluid">
-    <h1>Cart</h1>
+    <h4 style="display: inline-block">Cart</h4>
     <div class="flex-col">
       <ul class="cart-list" style="label-align: center" v-if="!cartItemsCount">
         <li class="">

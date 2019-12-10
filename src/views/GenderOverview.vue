@@ -1,6 +1,6 @@
 <template>
   <div class="col-lg-9 col-md-9">
-    <h4 style="display: inline-block" class="wrapper">{{ pageTitle }}</h4>
+    <h4 style="display: inline-block">{{ pageTitle }}</h4>
     <div class="sortable">
       <v-select style="letter-spacing: 0; float: right; min-width: 192px" :options="options" v-model="selected"></v-select>
       <div class="dropdown">
