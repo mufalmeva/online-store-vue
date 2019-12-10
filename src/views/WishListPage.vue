@@ -1,5 +1,6 @@
 <template>
   <div class="col-lg-9 col-md-9">
+    <h4 style="display: inline-block" class="wrapper">WishList</h4>
     <div class="sortable"></div>
     <ul v-if="wishListCount" class="wrapper item-grid cd-container">
       <li v-for="product in wishList" :key="product.id" class="item-grid__item cd-item">

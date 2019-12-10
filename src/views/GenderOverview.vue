@@ -264,7 +264,7 @@ export default {
     },
     goToProduct(selectedProduct){
       $('body').removeClass('overlay-layer');
-      this.$router.push('products/'+selectedProduct.id);
+      this.$router.push(this.gender+'/products/'+selectedProduct.id);
     }
   },
   mounted() {

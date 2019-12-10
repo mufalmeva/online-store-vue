@@ -7,6 +7,8 @@ export default new Vuex.Store({
   state: {
     cart: [],
     wish: [],
+    currentOrders: [],
+    allOrders: [],
     categories: [
         "Shirts",
         "Sweaters",
@@ -670,6 +672,16 @@ export default new Vuex.Store({
     wishList: (state) => {
       return state.wish.map(
           itemId => state.products.find(product => product.id === itemId)
+      )
+    },
+    currentOrders: (state) => {
+      return state.currentOrders.map(
+          itemId => state.products.find(product => product.id === itemId)
+      )
+    },
+    allOrders: (state) => {
+      return state.allOrders.map(
+          itemId => state.allOrders.find(product => product.id === itemId)
       )
     }
   }

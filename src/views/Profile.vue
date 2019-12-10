@@ -11,17 +11,51 @@
                 </li>
             </ul>
             <div class="tab-content">
-                <div id="home" class="container tab-pane active"><br>
-                    <h3>HOME</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                </div>
-                <div id="menu1" class="container tab-pane fade"><br>
-                    <h3>Menu 1</h3>
-                    <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                <div id="menu1" class="container tab-pane active"><br>
+                    <ul v-if="currentOrdersCount">
+                        <li v-for="item in currentOrders"
+                            :key="item.id"
+                            class="flex-col cart-list__item">
+                            <img :src="makeImagePath(item)" class="thumbnail" alt="">
+                            <div class="flex-col cart-list__item__details">
+                                <div>
+                                    <p>{{ item.name }}</p>
+                                    <p>Size: {{ item.size }}</p>
+                                    <p>Color: {{ item.color }}</p>
+                                </div>
+                                <p>${{ item.price }}</p>
+                            </div>
+                        </li>
+                    </ul>
+                    <ul v-else>
+                        <li>
+                            Currently you do not have any order <br/>
+                            <button class="btn btn--grey"> Go back to catalogue</button>
+                        </li>
+                    </ul>
                 </div>
                 <div id="menu2" class="container tab-pane fade"><br>
-                    <h3>Menu 2</h3>
-                    <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
+                    <ul v-if="allOrdersCount">
+                        <li v-for="item in allOrders"
+                            :key="item.id"
+                            class="flex-col cart-list__item">
+                            <img :src="makeImagePath(item)" class="thumbnail" alt="">
+                            <div class="flex-col cart-list__item__details">
+                                <div>
+                                    <p>{{ item.name }}</p>
+                                    <p>Size: {{ item.size }}</p>
+                                    <p>Color: {{ item.color }}</p>
+                                </div>
+                                <p>${{ item.price }}</p>
+                            </div>
+                        </li>
+                    </ul>
+                    <ul v-else>
+                        <li>
+                            Currently you do not have any order <br/>
+                            <button class="btn btn--grey"> Go back to catalogue</button>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </div>
@@ -29,8 +63,25 @@
 </template>
 
 <script>
+    import {imagePath} from "@/mixins/imagePath";
+
     export default {
-        name: "Profile"
+        name: "Profile",
+        mixins: [imagePath],
+        computed: {
+            currentOrders() {
+                return this.$store.getters.currentOrders;
+            },
+            currentOrdersCount() {
+                return this.currentOrders.length;
+            },
+            allOrders() {
+                return this.$store.getters.allOrders;
+            },
+            allOrdersCount() {
+                return this.allOrders.length;
+            },
+        }
     }
 </script>
 
