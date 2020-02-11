@@ -7,6 +7,10 @@ import Profile from "./views/Profile";
 import GenderOverview from "./views/GenderOverview.vue";
 import PersonalData from "./views/PersonalData";
 import WishListPage from "./views/WishListPage";
+import ReturnAndExchange from "./views/page/ReturnAndExchange";
+import Oferta from "./views/page/Oferta";
+import PersonalAgreement from "./views/page/PersonalAgreement";
+import Contacts from "./views/page/Contacts";
 
 Vue.use(Router);
 
@@ -73,6 +77,38 @@ export default new Router({
       meta: {
         contentOnly: true,
         isProfile: true
+      },
+    },
+    {
+      path: '/page/exchange',
+      name: 'ReturnAndExchange',
+      component: ReturnAndExchange,
+      meta: {
+        contentOnly: true,
+      },
+    },
+    {
+      path: '/page/oferta',
+      name: 'Oferta',
+      component: Oferta,
+      meta: {
+        contentOnly: true,
+      },
+    },
+    {
+      path: '/page/agreement',
+      name: 'PersonalAgreement',
+      component: PersonalAgreement,
+      meta: {
+        contentOnly: true,
+      },
+    },
+    {
+      path: '/page/contacts',
+      name: 'Contacts',
+      component: Contacts,
+      meta: {
+        contentOnly: true,
       },
     }
   ]

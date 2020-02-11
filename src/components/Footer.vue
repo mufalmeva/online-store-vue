@@ -14,7 +14,7 @@
                         <li><a class="footer-menu-item" href="/page/agreement">Пользовательское соглашение</a></li>
                         <li><a class="footer-menu-item" href="/page/exchange">Условия обмена и возврата</a></li>
                         <li><a class="footer-menu-item" href="/page/feedback">Обратная связь</a></li>
-                        <li><a class="footer-menu-item" href="/collection/all">Каталог</a></li>
+                        <li><a class="footer-menu-item" href="/collection">Каталог</a></li>
                         <li><a class="footer-menu-item" href="/page/contacts">Контакты</a></li>
                     </ul>
                 </div>
@@ -42,7 +42,10 @@
                     </li>
                 </ul>
                 <div class="cell-12 buy-vars text-center">
-                </div>
+                    <h5>Способы оплаты</h5>
+                    <img src="../assets/img/mastercard.png" width="55"/>
+                    <img src="../assets/img/paypal.png" width="55"/>
+                    <img src="../assets/img/visa.png" width="55"/></div>
             </div>
             <div class="footer-phone">
                     <div class="m-b-10">

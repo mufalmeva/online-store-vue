@@ -2,7 +2,16 @@
   <div class=" col-lg-9 col-md-9">
     <section class="wrapper">
       <div class="flex-col">
-        <img  class="flex-col--2" :src="makeImagePath(product)" alt="">
+        <div class="flex-col--2">
+          <img  class="row" :src="makeImagePath(product)" alt="">
+          <div class="row">
+            <ul class="" style="text-align: center;">
+              <li v-for="image in product.images" style="display: inline-flex;">
+                <img :src="makeImagePath(image)" :alt="image" style="width: 78px;">
+              </li>
+            </ul>
+          </div>
+        </div>
         <div class="flex-col--2" >
           <h2>{{ product.name }}</h2>
           <button @click="addToCart" class="btn btn--grey">Add to Cart</button>

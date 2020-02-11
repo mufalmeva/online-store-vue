@@ -125,20 +125,31 @@
             <p class="product-title">{{ product.name }}</p>
             <p><em>${{ product.price }}</em></p>
           </router-link>
-          <span class="cd-trigger" @click="quickViewProduct(product, $event)">Quick View</span>
+          <span class="cd-trigger" @click="quickView(product, $event)">Quick View</span>
         </li>
       </ul>
-    <div class="cd-quick-view col-lg-12 col-md-12" v-if="selectedProduct">
+      <div class="cd-quick-view col-lg-12 col-md-12" v-if="selectedProduct">
         <div class="row">
           <div class="cd-slider-wrapper col-md-6 col-lg-6">
-            <ul class="cd-slider">
-              <li class="selected">
-                <img src="" alt="Product 1" /></li>
-            </ul>
-            <ul class="cd-slider-navigation">
-              <li><a class="cd-next" href="javascript:void(0)">Prev</a></li>
-              <li><a class="cd-prev" href="javascript:void(0)">Next</a></li>
-            </ul>
+            <div class="">
+              <ul class="cd-slider">
+                <li class="selected">
+                  <img src="" alt="Product 1" /></li>
+              </ul>
+              <ul class="cd-slider-navigation">
+                <li><a class="cd-next" href="javascript:void(0)">Prev</a></li>
+                <li><a class="cd-prev" href="javascript:void(0)">Next</a></li>
+              </ul>
+            </div>
+            <div class="row">
+              <div class="col-12">
+                <ul class="cd-item-info" style="text-align: center;">
+                  <li v-for="image in selectedProduct.images" style="display: inline-flex;">
+                    <img :src="makeImagePath(image)" :alt="image" style="width: 78px;">
+                  </li>
+                </ul>
+              </div>
+            </div>
           </div>
           <div class="cd-item-info col-md-6 col-lg-6">
             <div class="" >
@@ -192,7 +203,7 @@
 
 <script>
 import { imagePath } from '@/mixins/imagePath.js'
-import {viewProduct} from "@/assets/js/main.js"
+import {viewProduct} from "@/mixins/viewProduct.js"
 import { all } from 'q';
 
 export default {
@@ -246,6 +257,12 @@ export default {
     }
   },
   methods: {
+    quickView(product, event){
+      this.selectedProduct=product;
+      this.$nextTick(()=>{
+        this.quickViewProduct(product,event);
+      });
+    },
     randomProductIdByCategory(category) {
       let allProductsInCategory = this.productsByGender.filter(p => p.category === category);
       let randomIndex = Math.floor(Math.random() * allProductsInCategory.length);
