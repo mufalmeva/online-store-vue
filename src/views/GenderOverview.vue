@@ -1,124 +1,125 @@
 <template>
   <div class="col-lg-9 col-md-9">
-    <h4 style="display: inline-block">{{ pageTitle }}</h4>
-    <div class="sortable">
-      <v-select style="letter-spacing: 0; float: right; min-width: 192px" :options="options" v-model="selected"></v-select>
-      <div class="dropdown">
-        <button style="letter-spacing: 0; float: right" class="btn btn-light dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Color
-        </button>
-        <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-          <div class="card" style="width: 12rem">
-            <div class="card-body">
-              <div class="custom-control custom-checkbox">
-                <input type="checkbox" class="custom-control-input" id="red">
-                <label class="custom-control-label" for="red">
-                  <svg width="18" height="18" version="1.1" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="gradientred" x1="0" x2="0" y1="0" y2="1"><stop offset="0%" stop-color="red"></stop><stop offset="100%" stop-color="black" stop-opacity="0"></stop></linearGradient></defs><rect rx="15" ry="15" width="18" height="18" fill="url(#gradientred)"></rect></svg>
-                  Red
-                </label>
+    <div class="col-lg-12 col-md-12">
+      <h4 style="display: inline-block">{{ pageTitle }}</h4>
+      <div class="sortable">
+        <v-select style="letter-spacing: 0; float: right; min-width: 192px" :options="options" v-model="selected"></v-select>
+        <div class="dropdown">
+          <button style="letter-spacing: 0; float: right" class="btn btn-light dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Color
+          </button>
+          <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+            <div class="card" style="width: 12rem">
+              <div class="card-body">
+                <div class="custom-control custom-checkbox">
+                  <input type="checkbox" class="custom-control-input" id="red">
+                  <label class="custom-control-label" for="red">
+                    <svg width="18" height="18" version="1.1" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="gradientred" x1="0" x2="0" y1="0" y2="1"><stop offset="0%" stop-color="red"></stop><stop offset="100%" stop-color="black" stop-opacity="0"></stop></linearGradient></defs><rect rx="15" ry="15" width="18" height="18" fill="url(#gradientred)"></rect></svg>
+                    Red
+                  </label>
+                </div>
+                <div class="custom-control custom-checkbox">
+                  <input type="checkbox" class="custom-control-input" id="blue">
+                  <label class="custom-control-label" for="blue">
+                    <svg width="18" height="18" version="1.1" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="gradientblue" x1="0" x2="0" y1="0" y2="1"><stop offset="0%" stop-color="blue"></stop><stop offset="100%" stop-color="black" stop-opacity="0"></stop></linearGradient></defs><rect rx="15" ry="15" width="18" height="18" fill="url(#gradientblue)"></rect></svg>
+                    Blue
+                  </label>
+                </div>
+                <div class="custom-control custom-checkbox">
+                  <input type="checkbox" class="custom-control-input" id="yellow">
+                  <label class="custom-control-label" for="yellow">
+                    <svg width="18" height="18" version="1.1" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="gradientyellow" x1="0" x2="0" y1="0" y2="1"><stop offset="0%" stop-color="yellow"></stop><stop offset="100%" stop-color="black" stop-opacity="0"></stop></linearGradient></defs><rect rx="15" ry="15" width="18" height="18" fill="url(#gradientyellow)"></rect></svg>
+                    Yellow
+                  </label>
+                </div>
+                <div class="custom-control custom-checkbox">
+                  <input type="checkbox" class="custom-control-input" id="green">
+                  <label class="custom-control-label" for="green">
+                    <svg width="18" height="18" version="1.1" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="gradientgreen" x1="0" x2="0" y1="0" y2="1"><stop offset="0%" stop-color="green"></stop><stop offset="100%" stop-color="black" stop-opacity="0"></stop></linearGradient></defs><rect rx="15" ry="15" width="18" height="18" fill="url(#gradientgreen)"></rect></svg>
+                    Green
+                  </label>
+                </div>
+                <input type="submit" class="btn btn-light" value="Apply"/>
               </div>
-              <div class="custom-control custom-checkbox">
-                <input type="checkbox" class="custom-control-input" id="blue">
-                <label class="custom-control-label" for="blue">
-                  <svg width="18" height="18" version="1.1" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="gradientblue" x1="0" x2="0" y1="0" y2="1"><stop offset="0%" stop-color="blue"></stop><stop offset="100%" stop-color="black" stop-opacity="0"></stop></linearGradient></defs><rect rx="15" ry="15" width="18" height="18" fill="url(#gradientblue)"></rect></svg>
-                  Blue
-                </label>
+            </div>
+          </div>
+        </div>
+        <div class="dropdown">
+          <button style="letter-spacing: 0; float: right" class="btn btn-light dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Size
+          </button>
+          <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+            <div class="card" style="width: 12rem;">
+              <div class="card-body">
+                <div class="custom-control custom-checkbox">
+                  <input type="checkbox" class="custom-control-input" id="34">
+                  <label class="custom-control-label" for="34">34</label>
+                </div>
+                <div class="custom-control custom-checkbox">
+                  <input type="checkbox" class="custom-control-input" id="38">
+                  <label class="custom-control-label" for="38">38</label>
+                </div>
+                <div class="custom-control custom-checkbox">
+                  <input type="checkbox" class="custom-control-input" id="42">
+                  <label class="custom-control-label" for="42">42</label>
+                </div>
+                <div class="custom-control custom-checkbox">
+                  <input type="checkbox" class="custom-control-input" id="44">
+                  <label class="custom-control-label" for="44">44</label>
+                </div>
+                <input type="submit" class="btn btn-light" value="Apply"/>
               </div>
-              <div class="custom-control custom-checkbox">
-                <input type="checkbox" class="custom-control-input" id="yellow">
-                <label class="custom-control-label" for="yellow">
-                  <svg width="18" height="18" version="1.1" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="gradientyellow" x1="0" x2="0" y1="0" y2="1"><stop offset="0%" stop-color="yellow"></stop><stop offset="100%" stop-color="black" stop-opacity="0"></stop></linearGradient></defs><rect rx="15" ry="15" width="18" height="18" fill="url(#gradientyellow)"></rect></svg>
-                  Yellow
-                </label>
+            </div>
+          </div>
+        </div>
+        <div class="dropdown">
+          <button style="letter-spacing: 0; float: right" class="btn btn-light dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Cost
+          </button>
+          <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+            <div class="card" style="width: 12rem;">
+              <div class="card-body">
+                <p class="card-text">
+                  <label for="from">From</label>
+                  <input id="from" class="form-control" type="text" style="height: calc(1em + .75rem + 0px)">
+                  <label for="to">To</label>
+                  <input id="to" type="text" class="form-control" style="height: calc(1em + .75rem + 0px)">
+                </p>
+                <input type="submit" class="btn btn-light" value="Apply"/>
               </div>
-              <div class="custom-control custom-checkbox">
-                <input type="checkbox" class="custom-control-input" id="green">
-                <label class="custom-control-label" for="green">
-                  <svg width="18" height="18" version="1.1" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="gradientgreen" x1="0" x2="0" y1="0" y2="1"><stop offset="0%" stop-color="green"></stop><stop offset="100%" stop-color="black" stop-opacity="0"></stop></linearGradient></defs><rect rx="15" ry="15" width="18" height="18" fill="url(#gradientgreen)"></rect></svg>
-                  Green
-                </label>
+            </div>
+          </div>
+        </div>
+        <div class="dropdown">
+          <button style="letter-spacing: 0; float: right" class="btn btn-light dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Season
+          </button>
+          <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+            <div class="card" style="width: 12rem;">
+              <div class="card-body">
+                <div class="custom-control custom-checkbox">
+                  <input type="checkbox" class="custom-control-input" id="summer">
+                  <label class="custom-control-label" for="summer">Summer</label>
+                </div>
+                <div class="custom-control custom-checkbox">
+                  <input type="checkbox" class="custom-control-input" id="winter">
+                  <label class="custom-control-label" for="winter">Winter</label>
+                </div>
+                <div class="custom-control custom-checkbox">
+                  <input type="checkbox" class="custom-control-input" id="automn">
+                  <label class="custom-control-label" for="automn">Automn</label>
+                </div>
+                <div class="custom-control custom-checkbox">
+                  <input type="checkbox" class="custom-control-input" id="spring">
+                  <label class="custom-control-label" for="spring">Spring</label>
+                </div>
+                <input type="submit" class="btn btn-light" value="Apply"/>
               </div>
-              <input type="submit" class="btn btn-light" value="Apply"/>
             </div>
           </div>
         </div>
       </div>
-      <div class="dropdown">
-        <button style="letter-spacing: 0; float: right" class="btn btn-light dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Size
-        </button>
-        <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-          <div class="card" style="width: 12rem;">
-            <div class="card-body">
-              <div class="custom-control custom-checkbox">
-                <input type="checkbox" class="custom-control-input" id="34">
-                <label class="custom-control-label" for="34">34</label>
-              </div>
-              <div class="custom-control custom-checkbox">
-                <input type="checkbox" class="custom-control-input" id="38">
-                <label class="custom-control-label" for="38">38</label>
-              </div>
-              <div class="custom-control custom-checkbox">
-                <input type="checkbox" class="custom-control-input" id="42">
-                <label class="custom-control-label" for="42">42</label>
-              </div>
-              <div class="custom-control custom-checkbox">
-                <input type="checkbox" class="custom-control-input" id="44">
-                <label class="custom-control-label" for="44">44</label>
-              </div>
-              <input type="submit" class="btn btn-light" value="Apply"/>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="dropdown">
-        <button style="letter-spacing: 0; float: right" class="btn btn-light dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Cost
-        </button>
-        <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-          <div class="card" style="width: 12rem;">
-            <div class="card-body">
-              <p class="card-text">
-                <label for="from">From</label>
-                <input id="from" class="form-control" type="text" style="height: calc(1em + .75rem + 0px)">
-                <label for="to">To</label>
-                <input id="to" type="text" class="form-control" style="height: calc(1em + .75rem + 0px)">
-              </p>
-              <input type="submit" class="btn btn-light" value="Apply"/>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="dropdown">
-        <button style="letter-spacing: 0; float: right" class="btn btn-light dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Season
-        </button>
-        <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-          <div class="card" style="width: 12rem;">
-            <div class="card-body">
-              <div class="custom-control custom-checkbox">
-                <input type="checkbox" class="custom-control-input" id="summer">
-                <label class="custom-control-label" for="summer">Summer</label>
-              </div>
-              <div class="custom-control custom-checkbox">
-                <input type="checkbox" class="custom-control-input" id="winter">
-                <label class="custom-control-label" for="winter">Winter</label>
-              </div>
-              <div class="custom-control custom-checkbox">
-                <input type="checkbox" class="custom-control-input" id="automn">
-                <label class="custom-control-label" for="automn">Automn</label>
-              </div>
-              <div class="custom-control custom-checkbox">
-                <input type="checkbox" class="custom-control-input" id="spring">
-                <label class="custom-control-label" for="spring">Spring</label>
-              </div>
-              <input type="submit" class="btn btn-light" value="Apply"/>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <ul class="wrapper item-grid cd-container">
+      <ul class="wrapper item-grid cd-container">
         <li v-for="product in productsByGender" :key="product.id" @mouseover="bindEvent()" @mouseout="unbindEvent()" class="item-grid__item cd-item">
           <router-link :to="{ name: 'product', params: {gender: gender, id: product.id}}">
             <img class="product-image" :src="makeImagePath(product)" alt="">
@@ -133,11 +134,7 @@
           <div class="flex-col--2">
             <img class="main-img" src="" alt="Product 1" />
             <div class="cd-item-info" style="position: relative; padding: 0">
-              <ul class="info-slider" style="text-align: center;padding-left: 0;">
-                <li v-for="image in selectedProduct.images" style="display: inline-flex;" class=" slide-item">
-                  <img :src="makeImagePath(image)" :alt="image" style="width: 78px;">
-                </li>
-              </ul>
+              <info-slider :selectedProduct="selectedProduct"></info-slider>
             </div>
             <a href="javascript:void(0)" class="cd-close">Close</a>
           </div>
@@ -165,28 +162,29 @@
           </div>
         </div>
       </div>
-      <div class="wrapper random-items-wrapper">
-        <h2>Our Recommendations</h2>
-        <p>Try these on for size!</p>
-        <section class="random-items">
-          <router-link :to="{ name: 'product', params: { id: randomTop.id}}" class="random-items__item">
-            <img class="product-image" :src="makeImagePath(randomTop)" alt="">
-            <p class="product-title">{{ randomTop.name }}</p>
-            <p><em>${{ randomTop.price }}</em></p>
-          </router-link>
-          <router-link :to="{ name: 'product', params: { id: randomBottom.id}}" class="random-items__item">
-            <img class="product-image" :src="makeImagePath(randomBottom)" alt="">
-            <p class="product-title">{{ randomBottom.name }}</p>
-            <p><em>${{ randomBottom.price }}</em></p>
-          </router-link>
-          <router-link :to="{ name: 'product', params: { id: randomFootwear.id}}" class="random-items__item">
-            <img class="product-image" :src="makeImagePath(randomFootwear)" alt="">
-            <p class="product-title">{{ randomFootwear.name }}</p>
-            <p><em>${{ randomFootwear.price }}</em></p>
-          </router-link>
-        </section>
-        <button class="btn btn--grey" @click="recommendRandomOutfit">Shuffle</button>
-      </div>
+    </div>
+    <div class="wrapper random-items-wrapper">
+      <h2>Our Recommendations</h2>
+      <p>Try these on for size!</p>
+      <section class="random-items">
+        <router-link :to="{ name: 'product', params: { id: randomTop.id}}" class="random-items__item">
+          <img class="product-image" :src="makeImagePath(randomTop)" alt="">
+          <p class="product-title">{{ randomTop.name }}</p>
+          <p><em>${{ randomTop.price }}</em></p>
+        </router-link>
+        <router-link :to="{ name: 'product', params: { id: randomBottom.id}}" class="random-items__item">
+          <img class="product-image" :src="makeImagePath(randomBottom)" alt="">
+          <p class="product-title">{{ randomBottom.name }}</p>
+          <p><em>${{ randomBottom.price }}</em></p>
+        </router-link>
+        <router-link :to="{ name: 'product', params: { id: randomFootwear.id}}" class="random-items__item">
+          <img class="product-image" :src="makeImagePath(randomFootwear)" alt="">
+          <p class="product-title">{{ randomFootwear.name }}</p>
+          <p><em>${{ randomFootwear.price }}</em></p>
+        </router-link>
+      </section>
+      <button class="btn btn--grey" @click="recommendRandomOutfit">Shuffle</button>
+    </div>
   </div>
 </template>
 

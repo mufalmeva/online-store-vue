@@ -1,15 +1,11 @@
 <template>
   <div class=" col-lg-9 col-md-9">
     <section class="wrapper">
-      <div class="flex-col">
+      <div class="flex-col ">
         <div class="flex-col--2">
-          <img  class="row main-img" :src="makeImagePath(product)" alt="">
+          <img  class="row main-img" :src="selectedImageUrl" alt="">
           <div class="">
-            <ul class="info-slider" style="left:-10%;text-align: center;padding-left: 0;">
-              <li v-for="image in product.images" style="display: inline-flex;" class=" slide-item">
-                <img :src="makeImagePath(image)" :alt="image" style="width: 78px;">
-              </li>
-            </ul>
+            <info-slider :selectedProduct="product"></info-slider>
           </div>
         </div>
         <div class="flex-col--2" >
@@ -52,6 +48,7 @@
 
 <script>
 import { imagePath }  from '@/mixins/imagePath.js'
+import {sliderShow} from "@/assets/js/main";
 export default {
   name: 'product',
   mixins: [imagePath],
@@ -70,8 +67,8 @@ export default {
     }
   },
   mounted() {
+    sliderShow();
     $(document).ready(function(){
-      this.
       $('.slider').slick({
         slidesToShow: 5,
         slidesToScroll: 3,
@@ -94,30 +91,6 @@ export default {
           }
         }]
       });
-
-      $('.info-slider').slick({
-        slidesToShow: 4,
-        slidesToScroll: 1,
-        autoplay: false,
-        prevArrow: '<button class="slick-prev slick-arrow" type="button"><i class="fa fa-arrow-alt-circle-left"></i> </button>',
-        nextArrow: '<button class="slick-next slick-arrow" type="button"><i class="fa fa-arrow-alt-circle-right"></i></button>',
-        autoplaySpeed: 2000,
-        arrows: true,
-        dots: false,
-        pauseOnHover: true,
-        responsive: [{
-          breakpoint: 768,
-          settings: {
-            slidesToShow: 2
-          }
-        }, {
-          breakpoint: 520,
-          settings: {
-            slidesToShow: 1
-          }
-        }]
-      });
-
     });
   },
   computed: {
@@ -127,6 +100,9 @@ export default {
     productsByGender() {
       return this.$store.getters.productsByGender(this.gender)
     },
+    selectedImageUrl(){
+      return this.makeImagePath(this.product);
+    }
   }
 };
 </script>

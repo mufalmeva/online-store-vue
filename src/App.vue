@@ -7,6 +7,9 @@
         <ProfileSidebar v-show="contentOnly && isProfile"></ProfileSidebar>
         <router-view/>
       </div>
+      <div class="row">
+        <div class="prefooter"></div>
+      </div>
     </div>
     <Footer></Footer>
   </div>

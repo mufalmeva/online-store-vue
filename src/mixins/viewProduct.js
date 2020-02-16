@@ -11,6 +11,7 @@ export const viewProduct = {
           slectedImageUrl = imagePath.methods.makeImagePath(product);
 
       $('body').addClass('overlay-layer');
+      $('.cd-quick-view').find('.selected').removeClass('selected');
       $('.cd-quick-view .main-img').attr('src',slectedImageUrl);
       $('.cd-quick-view .info-slider').find('img[src="'+ slectedImageUrl +'"]').addClass('selected');
       animateQuickView(selectedImage, sliderFinalWidth, maxQuickWidth, 'open');
@@ -28,8 +29,6 @@ export const viewProduct = {
           closeQuickView( sliderFinalWidth, maxQuickWidth);
         }
       });
-
-      //quick view slider implementation
 
       //center quick-view on window resize
       $(window).on('resize', function(){
@@ -76,7 +75,7 @@ export const viewProduct = {
             windowHeight = $(window).height(),
             finalLeft = (windowWidth - finalWidth)/2,
             finalHeight = finalWidth * heightSelected/widthSelected,
-            finalTop = (windowHeight - finalHeight)/2,
+            finalTop = 0,
             quickViewWidth = ( windowWidth * .8 < maxQuickWidth ) ? windowWidth * .8 : maxQuickWidth ,
             quickViewLeft = (windowWidth - quickViewWidth)/2;
 
@@ -88,6 +87,7 @@ export const viewProduct = {
             "top": topSelected,
             "left": leftSelected,
             "width": widthSelected,
+            "height": $(window).height(),
           }).velocity({
             //animate the quick view: animate its width and center it in the viewport
             //during this animation, only the slider image is visible
@@ -122,6 +122,7 @@ export const viewProduct = {
               parentListItem.removeClass('empty-box');
             });
           });
+          $('.info-slider').slick('unslick');
         }
       }
       // eslint-disable-next-line no-unused-vars

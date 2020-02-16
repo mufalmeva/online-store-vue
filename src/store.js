@@ -49,7 +49,7 @@ export default new Vuex.Store({
         price: 49.5,
         color: "red",
         size: "medium",
-        gender: "women",
+        gender: "men",
         quantity: 8,
         dateAdded: "Mon Mar 23 2015 20:00:00 GMT-0400 (Eastern Daylight Time)",
         category: "Sweaters",
