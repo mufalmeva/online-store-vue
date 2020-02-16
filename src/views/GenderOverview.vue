@@ -129,29 +129,19 @@
         </li>
       </ul>
       <div class="cd-quick-view col-lg-12 col-md-12" v-if="selectedProduct">
-        <div class="row">
-          <div class="cd-slider-wrapper col-md-6 col-lg-6">
-            <div class="">
-              <ul class="cd-slider">
-                <li class="selected">
-                  <img src="" alt="Product 1" /></li>
-              </ul>
-              <ul class="cd-slider-navigation">
-                <li><a class="cd-next" href="javascript:void(0)">Prev</a></li>
-                <li><a class="cd-prev" href="javascript:void(0)">Next</a></li>
+        <div class="flex-col">
+          <div class="flex-col--2">
+            <img class="main-img" src="" alt="Product 1" />
+            <div class="cd-item-info" style="position: relative; padding: 0">
+              <ul class="info-slider" style="text-align: center;padding-left: 0;">
+                <li v-for="image in selectedProduct.images" style="display: inline-flex;" class=" slide-item">
+                  <img :src="makeImagePath(image)" :alt="image" style="width: 78px;">
+                </li>
               </ul>
             </div>
-            <div class="row">
-              <div class="col-12">
-                <ul class="cd-item-info" style="text-align: center;">
-                  <li v-for="image in selectedProduct.images" style="display: inline-flex;">
-                    <img :src="makeImagePath(image)" :alt="image" style="width: 78px;">
-                  </li>
-                </ul>
-              </div>
-            </div>
+            <a href="javascript:void(0)" class="cd-close">Close</a>
           </div>
-          <div class="cd-item-info col-md-6 col-lg-6">
+          <div class="flex-col--2 cd-item-info">
             <div class="" >
               <h2>{{ selectedProduct.name }}</h2>
               <button @click="addToCart(selectedProduct)" class="btn btn--grey">Add to Cart</button>
@@ -173,7 +163,6 @@
                 <a href="javascript:void(0)" class="learn-more" @click="goToProduct(selectedProduct)">Learn more</a></li>
             </ul>
           </div>
-          <a href="javascript:void(0)" class="cd-close">Close</a>
         </div>
       </div>
       <div class="wrapper random-items-wrapper">
@@ -291,6 +280,16 @@ export default {
 </script>
 
 <style lang="scss">
+  .flex-col {
+    display: flex;
+    align-items: flex-start;
+  }
+  .flex-col--2 {
+    width: 50%;
+  }
+  .flex-col--align-center {
+    align-items: center;
+  }
 .gender-page {
   padding-left: 224px;
 }
