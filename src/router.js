@@ -27,70 +27,69 @@ export default new Router({
       }
     },
     {
-      path: '/cart/',
-      name: 'cart',
+      path: '/cart',
+      name: 'Cart',
       component: Cart,
       meta: {
-        contentOnly: true
-      }
-    },
-    {
-      path: '/profile',
-      redirect: '/profile/orders',
-      meta: {
         contentOnly: true,
-        isProfile: true
+        isCart: true
       }
     },
     {
       path: '/:gender',
+      name: 'GenderOverview',
       component: {render (c) { return c('router-view') }},
-      children :[
+      children: [
         {
-          path: '',
-          redirect: '/:gender',
-          name: 'Gender Overview',
-          component: {render (c) { return c('router-view') }},
-          children: [
-            {
-              path:'/:gender',
-              component: GenderOverview
-            },
-            {
-              path: '/:gender/products/:id',
-              name: 'Product',
-              component: Product,
-            },
-          ]
+          path:'/:gender',
+          name: 'GenderOverview',
+          component: GenderOverview
+        },
+        {
+          path: '/:gender/products/:id',
+          name: 'product',
+          component: Product,
         },
       ]
     },
     {
-      path: '/profile/orders',
+      path: 'profile',
+      redirect:'/profile/orders',
       name: 'Profile',
-      component: Profile,
+      component: {render (c) { return c('router-view') }},
       meta: {
         contentOnly: true,
         isProfile: true
       },
-    },
-    {
-      path: '/profile/data',
-      name: 'PersonalData',
-      component: PersonalData,
-      meta: {
-        contentOnly: true,
-        isProfile: true
-      },
-    },
-    {
-      path: '/profile/wishlist',
-      name: 'WishListPage',
-      component: WishListPage,
-      meta: {
-        contentOnly: true,
-        isProfile: true
-      },
+      children: [
+        {
+          path: '/profile/orders',
+          name: 'Orders',
+          component: Profile,
+          meta: {
+            contentOnly: true,
+            isProfile: true
+          },
+        },
+        {
+          path: '/profile/data',
+          name: 'PersonalData',
+          component: PersonalData,
+          meta: {
+            contentOnly: true,
+            isProfile: true
+          },
+        },
+        {
+          path: '/profile/wishlist',
+          name: 'WishListPage',
+          component: WishListPage,
+          meta: {
+            contentOnly: true,
+            isProfile: true
+          },
+        },
+      ]
     },
     {
       path: '/page/exchange',
