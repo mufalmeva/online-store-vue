@@ -18,11 +18,19 @@ import "@/assets/js/main.js";
 
 import vSelect from 'vue-select';
 import InfoSlider from "./components/lib/InfoSlider";
+import Breadcrumbs from "./components/lib/Breadcrumb";
 
 Vue.component('v-select', vSelect );
 Vue.component('info-slider', InfoSlider);
+Vue.component('breadcrumb', Breadcrumbs);
 
 Vue.config.productionTip = false;
+
+Vue.filter('capitalize', function (value) {
+  if (!value) return '';
+  value = value.toString();
+  return value.charAt(0).toUpperCase() + value.slice(1)
+});
 
 new Vue({
   router,

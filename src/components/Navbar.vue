@@ -3,12 +3,12 @@
     <div class="nav-items">
       <router-link to="/" class="nav-items__item">Home</router-link>
       <router-link
-        :to="{ name: 'gender-overview', params: { gender: 'women' } }"
+        :to="{ name: 'Gender Overview', params: { gender: 'women' } }"
         class="nav-items__item"
         >Women</router-link
       >
       <router-link
-        :to="{ name: 'gender-overview', params: { gender: 'men' } }"
+        :to="{ name: 'Gender Overview', params: { gender: 'men' } }"
         class="nav-items__item"
         >Men</router-link
       >
@@ -82,6 +82,7 @@
     <!--    Logo area in the centre-->
     <h1 class="logo">SAPATO</h1>
     <hr/>
+    <breadcrumb v-if="!firstPage" :list="crumbs"></breadcrumb>
   </div>
 </template>
 
@@ -93,6 +94,24 @@ export default {
   computed: {
     cartCount() {
       return this.$store.state.cart.length;
+    },
+    list () {
+      return this.$route.matched.filter((route) => route.name || route.meta.label )
+    },
+    firstPage(){
+      return this.$route.meta.contentOnly && !this.$route.meta.isProfile;
+    },
+    crumbs: function() {
+      let pathArray = this.$route.path.split("/");
+      return pathArray.reduce((breadcrumbArray, path, idx) => {
+        breadcrumbArray.push({
+          path: path,
+          to: this.$route.matched[idx],
+          label: path || null,
+          name: this.$route.matched[idx] ? this.$route.matched[idx].name : null
+        });
+        return breadcrumbArray;
+      }, []);
     }
   },
   mounted() {

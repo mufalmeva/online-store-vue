@@ -27,11 +27,6 @@ export default new Router({
       }
     },
     {
-      path: '/:gender/products/:id',
-      name: 'product',
-      component: Product,
-    },
-    {
       path: '/cart/',
       name: 'cart',
       component: Cart,
@@ -48,9 +43,27 @@ export default new Router({
       }
     },
     {
-      path: '/:gender/',
-      name: 'gender-overview',
-      component: GenderOverview,
+      path: '/:gender',
+      component: {render (c) { return c('router-view') }},
+      children :[
+        {
+          path: '',
+          redirect: '/:gender',
+          name: 'Gender Overview',
+          component: {render (c) { return c('router-view') }},
+          children: [
+            {
+              path:'/:gender',
+              component: GenderOverview
+            },
+            {
+              path: '/:gender/products/:id',
+              name: 'Product',
+              component: Product,
+            },
+          ]
+        },
+      ]
     },
     {
       path: '/profile/orders',
