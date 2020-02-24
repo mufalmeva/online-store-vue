@@ -2,63 +2,106 @@
   <div class="wrapper container-fluid">
     <h4 style="display: inline-block">Cart</h4>
     <div class="flex-col">
-      <ul class="cart-list" style="label-align: center" v-if="!cartItemsCount">
-        <li class="">
-          Your cart is currently empty <br/>
-          <button class="btn btn--grey"> Go back to catalogue</button>
-        </li>
-      </ul>
-      <ul v-else>
-        <li
-          v-for="item in cartItems"
-          :key="item.id"
-          class="flex-col cart-list__item">
-          <img :src="makeImagePath(item)" class="thumbnail" alt="">
-          <div class="flex-col cart-list__item__details">
-            <div>
-              <p>{{ item.name }}</p>
-              <p>Size: {{ item.size }}</p>
-              <p>Color: {{ item.color }}</p>
+      <div class="cart-list" style="label-align: center" v-if="!cartItemsCount">
+        Your cart is currently empty <br/>
+        <button class="btn btn--grey"> Go back to catalogue</button>
+      </div>
+      <div v-else class="cart-list flex-col--2">
+        <ul>
+          <li class="flex-col cart-list__head">
+            <div style="font-weight: bold; font-size: 14px; width: 58.33333%;">Items</div>
+            <div style="width: 16.66667%;text-align: center;">Quantity</div>
+            <div style="width: 25%;text-align: center;">Price</div>
+          </li>
+          <li class="cart-list__item" v-for="item in cartItems" :key="item.id">
+            <div class="flex-col row">
+              <div class="flex-col" style="width: 58.33333%;">
+                <img :src="makeImagePath(item)" class="thumbnail" alt="">
+                <div class="cart-list__item__details">
+                  <p>{{ item.name }}</p>
+                  <p>Size: {{ item.size }}</p>
+                  <p>Color: {{ item.color }}</p>
+                </div>
+              </div>
+              <div style="width: 16.66667%;text-align: center;">
+                <button class="cart-button__round"><i class="fa fa-minus"></i></button>
+                <span style="margin: 0 9px;">{{cartItemsCount}}</span>
+                <button class="cart-button__round"><i class="fa fa-plus"></i></button>
+              </div>
+              <div style="width: 25%;text-align: center;">
+                <p>${{ item.price }}</p>
+              </div>
             </div>
-            <p>${{ item.price }}</p>
-            <button
-              @click="removeFromCart(item.id)"
-              class="btn cart-list__btn-remove">
-              Remove
-            </button>
-          </div>
-        </li>
-      </ul>
-      <section class="total-section"v-if="cartItemsCount">
-        <ul class="total-section-list">
-          <li class="total-section__item">
-            <p class="total-section__item__label">{{ cartItemsCount }} items</p>
-            <p>{{ itemsSubtotal }}</p>
-            </li>
-          <li class="total-section__item">
-            <p class="total-section__item__label">Shipping</p>
-            <v-select v-model="selectedShippingOption" :options="shippingOptionsArray" style="min-width: 240px"></v-select>
-          </li>
-          <li class="total-section__item">
-            <p class="total-section__item__label">Subtotal</p>
-            <p>{{ subtotal }}</p>
-          </li>
-          <li class="total-section__item">
-            <p class="total-section__item__label">Tax ({{ salesTaxPercentage }})</p>
-            <p>{{ salesTaxApplied }}</p>
-          </li>
-          <li class="total-section__item">
-            <p class="total-section__item__label">Total</p>
-            <p>{{ total }}</p>
+            <div class="row">
+              <button
+                      @click="removeFromCart(item.id)"
+                      class="btn cart-list__btn-remove">
+                Remove
+              </button>
+            </div>
           </li>
         </ul>
-        <button
-          :disabled="!this.selectedShippingOption.value"
-          class="btn btn--grey total-section__checkout-button">
-            Check out
-        </button>
-      </section>
-    </div>
+      </div>
+      <div class="flex-col--2">
+        <section class="total-section" v-if="cartItemsCount">
+          <div class="total-section__item" style="background-color: #E5E5E5">
+            <div class="form-group" style="margin-top: 1rem; margin-left: 2rem;">
+              <label class="total-section__item__label">{{ cartItemsCount }} товаров на сумму {{ itemsSubtotal }}</label>
+            </div>
+          </div>
+          <ul class="total-section-list">
+            <li class="total-section__item">
+              <coupon></coupon>
+            </li>
+            <li class="total-section__item">
+              <div class="flex-col">
+                <label class="total-section__item__label">Способы оплаты</label>
+                <div class="form-group">
+                  <div class="form-check">
+                    <input id="master_card" type="radio" class="form-check-input" name="payment" value="master_card" checked/>
+                    <label for="master_card" class="form-check-label">Онлайн-оплата картой</label>
+                  </div>
+                  <div class="form-check">
+                    <input id="paypal" type="radio" class="form-check-input" name="payment" value="paypal"/>
+                    <label class="form-check-label" for="paypal">Онлай-оплата Paypal</label>
+                  </div>
+                </div>
+              </div>
+            </li>
+            <li class="total-section__item">
+              <label class="total-section__item__label">Доставка</label>
+              <div class="form-group">
+                <v-select v-model="selectedShippingOption" :options="shippingOptionsArray" style="min-width: 240px"></v-select>
+                <p style="word-wrap: break-spaces">Shipping options will be updated during checkout.</p>
+              </div>
+            </li>
+          </ul>
+          <ul class="total-section-list" style="background-color: #E5E5E5">
+            <li class="total-section__item">
+              <label class="total-section__item__label sp-6">Subtotal</label>
+              <p>{{ subtotal }}</p>
+            </li>
+            <li class="total-section__item">
+              <label class="total-section__item__label sp-6">Tax ({{ salesTaxPercentage }})</label>
+              <p>{{ salesTaxApplied }}</p>
+            </li>
+            <li class="total-section__item">
+              <label class="total-section__item__label sp-6">Discount ({{ salesTaxPercentage }})</label>
+              <p>{{ salesTaxApplied }}</p>
+            </li>
+            <li class="total-section__item">
+              <label class="total-section__item__label sp-6">Total</label>
+              <p>{{ total }}</p>
+            </li>
+          </ul>
+          <button
+                  :disabled="!this.selectedShippingOption.value"
+                  class="btn btn--grey total-section__checkout-button">
+            Proceed to checkout
+          </button>
+        </section>
+      </div>
+      </div>
   </div>
 </template>
 
@@ -91,6 +134,10 @@ export default {
           label: 'One week or more',
           value: 5,
         },
+        {
+          label: 'Free shipping',
+          value: 0,
+        },
       ],
     };
   },
@@ -106,24 +153,24 @@ export default {
     },
     subtotal() {
       if (this.selectedShippingOption && this.cartItemsCount > 0) {
-        return this.selectedShippingOption.value ? Number(this.itemsSubtotal) + Number(this.selectedShippingOption.value) : '---';
+        return this.selectedShippingOption.value ? Number(this.itemsSubtotal) + Number(this.selectedShippingOption.value) : Number(this.itemsSubtotal);
       }
-      return '---';
+      return '0';
     },
     salesTaxPercentage() {
       return `${this.salesTax * 100}%`;
     },
     salesTaxApplied() {
       if (this.selectedShippingOption && this.cartItemsCount > 0) {
-        return this.selectedShippingOption.value ? (this.subtotal * this.salesTax).toFixed(2) : '---';
+        return this.selectedShippingOption.value ? (this.subtotal * this.salesTax).toFixed(2) : 0;
       }
-      return '---';
+      return '0';
     },
     total() {
-      if (this.selectedShippingOption && this.cartItemsCount > 0) {
-        return this.selectedShippingOption.value ? Number(this.subtotal) + Number(this.salesTaxApplied) : '---';
+      if (this.cartItemsCount > 0) {
+        return Number(this.subtotal) + Number(this.salesTaxApplied);
       }
-      return '---';
+      return 0;
     }
   },
   methods: {
@@ -145,7 +192,7 @@ export default {
 
 <style lang="scss">
 .cart-list {
-  width: 70%;
+  width: 70%!important;
   margin-right: 1rem;
   @media only screen and (max-width: 832px) {
     width: 100%;
@@ -155,6 +202,10 @@ export default {
   width: 100%;
   border-bottom: 1px solid #2c3e50;
 }
+.cart-list__head {
+  width: 100%;
+  border-bottom: 5px solid #2c3e50;
+}
 .cart-list__item__details {
   flex: 2;
   justify-content: space-between;
@@ -163,7 +214,7 @@ export default {
 .cart-list__btn-remove {
   margin-top: .5rem;
   &:hover {
-    color: red;
+    color: red!important;
   }
 }
 .thumbnail {
@@ -179,14 +230,52 @@ export default {
 }
 .total-section__item {
   display: flex;
-  justify-content: space-between;
+  /*justify-content: space-between;*/
   align-items: center;
 }
 .total-section__item__label {
   font-weight: bold;
   margin-right: 1rem;
+  white-space: nowrap;
 }
 .total-section__checkout-button {
   width: 100%;
+}
+.cart-button__round {
+  min-width: 24px;
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  border-radius: 50%;
+  display: inline-block;
+  background-color: #fff;
+  box-shadow: 0 2px 8px 0 rgba(0,0,0,.16);
+  border: none;
+  position: relative;
+  outline: 0!important;
+  user-select: none;
+  &:hover {
+    background-color: rgba(27, 44, 212, 0.6);
+    color: #bbbbbb;
+  }
+}
+.cart-button__round__trash {
+  min-width: 24px;
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  border-radius: 50%;
+  display: inline-block;
+  background-color: #4c4c4c;
+  color: #fff;
+  box-shadow: 0 2px 8px 0 rgba(0,0,0,.16);
+  border: none;
+  position: relative;
+  outline: 0!important;
+  user-select: none;
+  &:hover {
+    background-color: rgba(247, 117, 109, 0.6);
+    color: #bbbbbb;
+  }
 }
 </style>

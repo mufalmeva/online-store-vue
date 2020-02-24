@@ -141,10 +141,12 @@
           <div class="flex-col--2 cd-item-info">
             <div class="" >
               <h2>{{ selectedProduct.name }}</h2>
-              <button @click="addToCart(selectedProduct)" class="btn btn--grey">Add to Cart</button>
               <p>Price: ${{ selectedProduct.price }}</p>
               <v-select style="width: 200px" :options="optionsSize" v-model="selectedSize"></v-select>
               <p>Color: {{ selectedProduct.color }}</p>
+              <button @click="addToCart(selectedProduct)" class="btn btn--grey">Add to Cart</button>
+              <img v-show="selectedProduct.liked" @click="addRemoveLike(selectedProduct.id)" class="like-product" src="../assets/img/like.png" height="24" width="24" alt=""/>
+              <img v-show="!selectedProduct.liked" @click="addRemoveLike(selectedProduct.id)" class="unlike-product" src="../assets/img/unlike.png" height="24" width="24" alt=""/>
               <p><em>{{ selectedProduct.quantity }} left in stock</em></p>
               <h3>Details</h3>
               <ul>
@@ -201,7 +203,6 @@ export default {
   },
   data () {
     return {
-      showLike: false,
       randomTopId: null,
       randomBottomId: null,
       randomFootwearId: null,
@@ -263,8 +264,8 @@ export default {
     addToCart(product) {
       this.$store.dispatch('addToCart', product.id)
     },
-    likeProductClick(like){
-      this.showLike = !like;
+    addRemoveLike(itemId){
+      return this.$store.dispatch('addRemoveLike', itemId)
     },
     goToProduct(selectedProduct){
       $('body').removeClass('overlay-layer');

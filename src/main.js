@@ -19,10 +19,12 @@ import "@/assets/js/main.js";
 import vSelect from 'vue-select';
 import InfoSlider from "./components/lib/InfoSlider";
 import Breadcrumbs from "./components/lib/Breadcrumb";
+import ApplyCoupon from "./components/lib/ApplyCoupon"
 
 Vue.component('v-select', vSelect );
 Vue.component('info-slider', InfoSlider);
 Vue.component('breadcrumb', Breadcrumbs);
+Vue.component('coupon', ApplyCoupon);
 
 Vue.config.productionTip = false;
 

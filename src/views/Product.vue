@@ -9,13 +9,12 @@
           </div>
         </div>
         <div class="flex-col--2" >
-          <h2>{{ product.name }}</h2>
+          <h2>{{ product.name }}</h2><p style="margin-top: 0;font-size: x-large; color: #179a94;">${{ product.price }}</p>
+          <p><strong>Size:</strong> {{ product.size|capitalize}}</p>
+          <p><strong>Color:</strong> {{ product.color|capitalize}}</p>
           <button @click="addToCart" class="btn btn--grey">Add to Cart</button>
           <img v-show="product.liked" @click="addRemoveLike(product.id)" class="like-product" src="../assets/img/like.png" height="24" width="24" alt=""/>
           <img v-show="!product.liked" @click="addRemoveLike(product.id)" class="unlike-product" src="../assets/img/unlike.png" height="24" width="24" alt=""/>
-          <p>Price: ${{ product.price }}</p>
-          <p>Size: {{ product.size }}</p>
-          <p>Color: {{ product.color }}</p>
           <p><em>{{ product.quantity }} left in stock</em></p>
           <h3>Details</h3>
           <ul>
@@ -42,6 +41,105 @@
           </div>
         </div>
       </section>
+    </div>
+    <div class="product-footer">
+      <nav class="wrapper">
+        <div class="nav nav-tabs" id="nav-tab" role="tablist">
+          <h4><a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Reviews (2)</a></h4>
+          <h4><a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Shipping & Delivery</a></h4>
+        </div>
+      </nav>
+      <div class="tab-content" id="nav-tabContent">
+        <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+          <strong>2 reviews for Basic Korean-style coat</strong>
+          <div class="auth-pages">
+            <div class="auth-left">
+              <div class="card">
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-md-2">
+                      <img src="https://image.ibb.co/jw55Ex/def_face.jpg" class="img img-rounded img-fluid"/>
+                      <p class="text-secondary text-center">15 Minutes Ago</p>
+                    </div>
+                    <div class="col-md-10">
+                      <p>
+                        <a class="float-left" href="https://maniruzzaman-akash.blogspot.com/p/contact.html"><strong>Eric Watson</strong></a>
+                        <span class="float-right"><i class="text-warning fa fa-star"></i></span>
+                        <span class="float-right"><i class="text-warning fa fa-star"></i></span>
+                        <span class="float-right"><i class="text-warning fa fa-star"></i></span>
+                        <span class="float-right"><i class="text-warning fa fa-star"></i></span>
+
+                      </p>
+                      <div class="clearfix"></div>
+                      <p>Lorem Ipsum is simply dummy text of the pr make  but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+                      <p>
+                        <a class="float-right btn text-white btn-danger"> <i class="fa fa-heart"></i> Like</a>
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="card">
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-md-2">
+                      <img src="https://image.ibb.co/jw55Ex/def_face.jpg" class="img img-rounded img-fluid"/>
+                      <p class="text-secondary text-center">March 14, 2018</p>
+                    </div>
+                    <div class="col-md-10">
+                      <p>
+                        <a class="float-left" href="https://maniruzzaman-akash.blogspot.com/p/contact.html"><strong>Edward Norton</strong></a>
+                        <span class="float-right"><i class="text-warning fa fa-star"></i></span>
+                        <span class="float-right"><i class="text-warning fa fa-star"></i></span>
+                        <span class="float-right"><i class="text-warning fa fa-star"></i></span>
+                        <span class="float-right"><i class="text-warning fa fa-star"></i></span>
+                      </p>
+                      <div class="clearfix"></div>
+                      <p>Lorem Ipsum is simply dummy text of the pr make  but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+                      <p>
+                        <a class="float-right btn text-white btn-danger"> <i class="fa fa-heart"></i> Like</a>
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="auth-right">
+              <h2>Add a review</h2>
+              <div class="spacer"></div>
+              <p><strong>Your email address will not be published. Required fields are marked *</strong></p>
+              <p>Your rating:
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+              </p>
+              <div class="spacer"></div>
+              <div class="spacer">Your review *</div>
+              <textarea rows="8"></textarea>
+              <div class="flex-col">
+                <div class="form-group">
+                  <label>Name *</label>
+                  <input type="text">
+                </div>
+                <div class="form-group">
+                  <label>Email *</label>
+                  <input type="email">
+                </div>
+              </div>
+              <div class="spacer"></div>
+              <a href="" class="auth-button-hollow">Create Account</a>
+
+            </div>
+          </div>
+        </div>
+        <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+          Vestibulum curae torquent diam diam commodo parturient penatibus nunc dui adipiscing convallis bulum parturient suspendisse parturient a.Parturient in parturient scelerisque nibh lectus quam a natoque adipiscing a vestibulum hendrerit et pharetra fames.Consequat net
+          Vestibulum parturient suspendisse parturient a.Parturient in parturient scelerisque nibh lectus quam a natoque adipiscing a vestibulum hendrerit et pharetra fames.Consequat netus.
+          Scelerisque adipiscing bibendum sem vestibulum et in a a a purus lectus faucibus lobortis tincidunt purus lectus nisl class eros.Condimentum a et ullamcorper dictumst mus et tristique elementum nam inceptos hac vestibulum amet elit
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -108,6 +206,9 @@ export default {
 </script>
 
 <style lang="scss">
+.product-footer {
+  left: -10%;
+}
 .flex-col {
   display: flex;
   align-items: flex-start;
@@ -129,10 +230,11 @@ export default {
   transition: all .15s ease;
 }
 .btn--grey {
-  background-color: lightgreen!important;
-  color: #FFF;
+  background-color: #3EBFA4!important;
+  color: #e9ecef!important;
+  font-weight: bold!important;
   &:hover, &:focus {
-    background-color: #42b983!important;
+    background-color: #358862!important;
   }
 }
 
