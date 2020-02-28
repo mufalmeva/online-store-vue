@@ -4,13 +4,14 @@ import Home from "./views/Home.vue";
 import Product from "./views/Product.vue";
 import Cart from "./views/Cart.vue";
 import Profile from "./views/Profile";
-import GenderOverview from "./views/GenderOverview.vue";
 import PersonalData from "./views/PersonalData";
 import WishListPage from "./views/WishListPage";
 import ReturnAndExchange from "./views/page/ReturnAndExchange";
 import Oferta from "./views/page/Oferta";
 import PersonalAgreement from "./views/page/PersonalAgreement";
 import Contacts from "./views/page/Contacts";
+import WomenOverview from "./views/WomenOverview";
+import MenOverview from "./views/MenOverview";
 
 Vue.use(Router);
 
@@ -23,7 +24,8 @@ export default new Router({
       name: "home",
       component: Home,
       meta: {
-        contentOnly: true
+        contentOnly: true,
+        firstPage: true,
       }
     },
     {
@@ -36,19 +38,42 @@ export default new Router({
       }
     },
     {
-      path: '/:gender',
-      name: 'GenderOverview',
+      path: 'women',
+      name: 'WomenOverview',
       component: {render (c) { return c('router-view') }},
       children: [
         {
-          path:'/:gender',
-          name: 'GenderOverview',
-          component: GenderOverview
+          path:'/women',
+          name: 'WomenOverview',
+          component: WomenOverview
         },
         {
-          path: '/:gender/products/:id',
-          name: 'product',
+          path: '/women/:productId',
+          name: 'womenProduct',
           component: Product,
+          meta: {
+            contentOnly: true
+          }
+        },
+      ]
+    },
+    {
+      path: 'men',
+      name: 'MenOverview',
+      component: {render (c) { return c('router-view') }},
+      children: [
+        {
+          path:'/men',
+          name: 'MenOverview',
+          component: MenOverview
+        },
+        {
+          path: '/men/:productId',
+          name: 'menProduct',
+          component: Product,
+          meta: {
+            contentOnly: true
+          }
         },
       ]
     },

@@ -31,7 +31,7 @@
     },
     computed:{
       selectedImageUrl(){
-        return this.makeImagePath(this.selectedProduct);
+        return this.selectedProduct ? this.makeImagePath(this.selectedProduct) : '';
       }
     }
   }

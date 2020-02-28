@@ -4,7 +4,7 @@
     <div class="sortable"></div>
     <ul v-if="wishListCount" class="wrapper item-grid cd-container">
       <li v-for="product in wishList" :key="product.id" class="item-grid__item cd-item">
-        <router-link :to="{ name: 'product', params: {gender: gender, id: product.id}}">
+        <router-link :to="{ name: product.gender+'Product', params: { productId: product.id}}">
           <img class="product-image" :src="makeImagePath(product)" alt="">
           <p class="product-title">{{ product.name }}</p>
           <p><em>${{ product.price }}</em></p>
@@ -29,7 +29,7 @@
     computed: {
       gender() {
         // return this.$route.params.gender
-        return 'women';
+        // return 'women';
       },
       wishList() {
         return this.$store.getters.wishList;

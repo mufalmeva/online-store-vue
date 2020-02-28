@@ -19,14 +19,17 @@ import "@/assets/js/main.js";
 import vSelect from 'vue-select';
 import InfoSlider from "./components/lib/InfoSlider";
 import Breadcrumbs from "./components/lib/Breadcrumb";
-import ApplyCoupon from "./components/lib/ApplyCoupon"
+import ApplyCoupon from "./components/lib/ApplyCoupon";
+import GenderOverview from "./components/lib/GenderOverview";
 
 Vue.component('v-select', vSelect );
 Vue.component('info-slider', InfoSlider);
 Vue.component('breadcrumb', Breadcrumbs);
 Vue.component('coupon', ApplyCoupon);
+Vue.component('gender-overview', GenderOverview);
 
 Vue.config.productionTip = false;
+Vue.config.baseUrl=process.env.BASE_URL;
 
 Vue.filter('capitalize', function (value) {
   if (!value) return '';

@@ -13,28 +13,28 @@
             <div style="width: 16.66667%;text-align: center;">Quantity</div>
             <div style="width: 25%;text-align: center;">Price</div>
           </li>
-          <li class="cart-list__item" v-for="item in cartItems" :key="item.id">
+          <li class="cart-list__item" v-for="item in cartItems" :key="item.product.id">
             <div class="flex-col row">
               <div class="flex-col" style="width: 58.33333%;">
-                <img :src="makeImagePath(item)" class="thumbnail" alt="">
+                <img :src="makeImagePath(item.product)" class="thumbnail" alt="">
                 <div class="cart-list__item__details">
-                  <p>{{ item.name }}</p>
-                  <p>Size: {{ item.size }}</p>
-                  <p>Color: {{ item.color }}</p>
+                  <p>{{ item.product.name }}</p>
+                  <p>Size: {{ item.product.size }}</p>
+                  <p>Color: {{ item.product.color }}</p>
                 </div>
               </div>
               <div style="width: 16.66667%;text-align: center;">
                 <button class="cart-button__round"><i class="fa fa-minus"></i></button>
-                <span style="margin: 0 9px;">{{cartItemsCount}}</span>
+                <span style="margin: 0 9px;">{{item.quantity}}</span>
                 <button class="cart-button__round"><i class="fa fa-plus"></i></button>
               </div>
               <div style="width: 25%;text-align: center;">
-                <p>${{ item.price }}</p>
+                <p>${{ item.product.price }}</p>
               </div>
             </div>
             <div class="row">
               <button
-                      @click="removeFromCart(item.id)"
+                      @click="removeFromCart(item.product.id)"
                       class="btn cart-list__btn-remove">
                 Remove
               </button>
@@ -146,10 +146,10 @@ export default {
       return this.$store.getters.cartItems;
     },
     cartItemsCount() {
-      return this.cartItems.length;
+      return this.cartItems.reduce((total, item) => total + item.quantity, 0);
     },
     itemsSubtotal() {
-      return this.cartItems.reduce((total, item) => total + item.price, 0);
+      return this.cartItems.reduce((total, item) => total + item.quantity*item.product.price, 0);
     },
     subtotal() {
       if (this.selectedShippingOption && this.cartItemsCount > 0) {

@@ -19,17 +19,17 @@
         <p>Try these on for size!</p>
         <h4 class="text-left">For women</h4>
         <section class="random-items">
-          <router-link :to="{ name: 'product', params: { id: randomWTop.id}}" class="random-items__item">
+          <router-link :to="{ name: 'womenProduct', params: { productId: randomWTop.id}}" class="random-items__item">
             <img class="product-image" :src="makeImagePath(randomWTop)" alt="">
             <p class="product-title">{{ randomWTop.name }}</p>
             <p><em>${{ randomWTop.price }}</em></p>
           </router-link>
-          <router-link :to="{ name: 'product', params: { id: randomWBottom.id}}" class="random-items__item">
+          <router-link :to="{ name: 'womenProduct', params: { productId: randomWBottom.id}}" class="random-items__item">
             <img class="product-image" :src="makeImagePath(randomWBottom)" alt="">
             <p class="product-title">{{ randomWBottom.name }}</p>
             <p><em>${{ randomWBottom.price }}</em></p>
           </router-link>
-          <router-link :to="{ name: 'product', params: { id: randomWFootwear.id}}" class="random-items__item">
+          <router-link :to="{ name: 'womenProduct', params: { productId: randomWFootwear.id}}" class="random-items__item">
             <img class="product-image" :src="makeImagePath(randomWFootwear)" alt="">
             <p class="product-title">{{ randomWFootwear.name }}</p>
             <p><em>${{ randomWFootwear.price }}</em></p>
@@ -38,17 +38,17 @@
         <button class="btn btn--grey" @click="recommendRandomOutfitWomen">Shuffle</button>
         <h4 class="text-left">For men</h4>
         <section class="random-items">
-          <router-link :to="{ name: 'product', params: { id: randomMTop.id}}" class="random-items__item">
+          <router-link :to="{ name: 'menProduct', params: { productId: randomMTop.id}}" class="random-items__item">
             <img class="product-image" :src="makeImagePath(randomMTop)" alt="">
             <p class="product-title">{{ randomMTop.name }}</p>
             <p><em>${{ randomMTop.price }}</em></p>
           </router-link>
-          <router-link :to="{ name: 'product', params: { id: randomMBottom.id}}" class="random-items__item">
+          <router-link :to="{ name: 'menProduct', params: { productId: randomMBottom.id}}" class="random-items__item">
             <img class="product-image" :src="makeImagePath(randomMBottom)" alt="">
             <p class="product-title">{{ randomMBottom.name }}</p>
             <p><em>${{ randomMBottom.price }}</em></p>
           </router-link>
-          <router-link :to="{ name: 'product', params: { id: randomMFootwear.id}}" class="random-items__item">
+          <router-link :to="{ name: 'menProduct', params: { productId: randomMFootwear.id}}" class="random-items__item">
             <img class="product-image" :src="makeImagePath(randomMFootwear)" alt="">
             <p class="product-title">{{ randomMFootwear.name }}</p>
             <p><em>${{ randomMFootwear.price }}</em></p>

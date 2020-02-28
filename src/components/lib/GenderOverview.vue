@@ -121,7 +121,7 @@
       </div>
       <ul class="wrapper item-grid cd-container">
         <li v-for="product in productsByGender" :key="product.id" @mouseover="bindEvent()" @mouseout="unbindEvent()" class="item-grid__item cd-item">
-          <router-link :to="{ name: 'product', params: {gender: gender, id: product.id}}">
+          <router-link :to="{ name: gender+'Product', params: { productId: product.id}}">
             <img class="product-image" :src="makeImagePath(product)" alt="">
             <p class="product-title">{{ product.name }}</p>
             <p><em>${{ product.price }}</em></p>
@@ -145,8 +145,8 @@
               <v-select style="width: 200px" :options="optionsSize" v-model="selectedSize"></v-select>
               <p>Color: {{ selectedProduct.color }}</p>
               <button @click="addToCart(selectedProduct)" class="btn btn--grey">Add to Cart</button>
-              <img v-show="selectedProduct.liked" @click="addRemoveLike(selectedProduct.id)" class="like-product" src="../assets/img/like.png" height="24" width="24" alt=""/>
-              <img v-show="!selectedProduct.liked" @click="addRemoveLike(selectedProduct.id)" class="unlike-product" src="../assets/img/unlike.png" height="24" width="24" alt=""/>
+              <img v-show="selectedProduct.liked" @click="addRemoveLike(selectedProduct.id)" class="like-product" src="@/assets/img/like.png" height="24" width="24" alt=""/>
+              <img v-show="!selectedProduct.liked" @click="addRemoveLike(selectedProduct.id)" class="unlike-product" src="@/assets/img/unlike.png" height="24" width="24" alt=""/>
               <p><em>{{ selectedProduct.quantity }} left in stock</em></p>
               <h3>Details</h3>
               <ul>
@@ -169,17 +169,17 @@
       <h2>Our Recommendations</h2>
       <p>Try these on for size!</p>
       <section class="random-items">
-        <router-link :to="{ name: 'product', params: { id: randomTop.id}}" class="random-items__item">
+        <router-link :to="{ name: gender+'Product', params: { productId: randomTop.id}}" class="random-items__item">
           <img class="product-image" :src="makeImagePath(randomTop)" alt="">
           <p class="product-title">{{ randomTop.name }}</p>
           <p><em>${{ randomTop.price }}</em></p>
         </router-link>
-        <router-link :to="{ name: 'product', params: { id: randomBottom.id}}" class="random-items__item">
+        <router-link :to="{ name: gender+'Product', params: { productId: randomBottom.id}}" class="random-items__item">
           <img class="product-image" :src="makeImagePath(randomBottom)" alt="">
           <p class="product-title">{{ randomBottom.name }}</p>
           <p><em>${{ randomBottom.price }}</em></p>
         </router-link>
-        <router-link :to="{ name: 'product', params: { id: randomFootwear.id}}" class="random-items__item">
+        <router-link :to="{ name: gender+'Product', params: { productId: randomFootwear.id}}" class="random-items__item">
           <img class="product-image" :src="makeImagePath(randomFootwear)" alt="">
           <p class="product-title">{{ randomFootwear.name }}</p>
           <p><em>${{ randomFootwear.price }}</em></p>
@@ -191,91 +191,89 @@
 </template>
 
 <script>
-import { imagePath } from '@/mixins/imagePath.js'
-import {viewProduct} from "@/mixins/viewProduct.js"
-import { all } from 'q';
+  import { imagePath } from '@/mixins/imagePath.js'
+  import {viewProduct} from "@/mixins/viewProduct.js"
+  import { all } from 'q';
 
-export default {
-  name: "genderOverview",
-  mixins: [ imagePath, viewProduct ],
-  created() {
-    this.recommendRandomOutfit();
-  },
-  data () {
-    return {
-      randomTopId: null,
-      randomBottomId: null,
-      randomFootwearId: null,
-      sorting: '',
-      selected: {value: 0, label: 'По популярности'},
-      options: [
-        {label: 'По популярности', value: 0},
-        {label: 'По возрастанию цены', value: 1},
-        {label: 'По убыванию цены', value: 2},
-        {label: 'По новинкам', value: 3},
-        {label: 'По скидкам', value: 4}
-      ],
-      selectedSize: {value: 0, label: 'Small'},
-      optionsSize: [
-        {label: 'Small', value: 0},
-        {label: 'Medium', value: 1},
-        {label: 'Big', value: 2},
-      ],
-      selectedProduct: null
-    }
-  },
-  computed: {
-    gender() {
-      return this.$route.params.gender
+  export default {
+    name: "genderOverview",
+    mixins: [ imagePath, viewProduct ],
+    props: ['gender'],
+    created() {
+      this.recommendRandomOutfit();
     },
-    pageTitle() {
+    data () {
+      return {
+        randomTopId: null,
+        randomBottomId: null,
+        randomFootwearId: null,
+        sorting: '',
+        selected: {value: 0, label: 'По популярности'},
+        options: [
+          {label: 'По популярности', value: 0},
+          {label: 'По возрастанию цены', value: 1},
+          {label: 'По убыванию цены', value: 2},
+          {label: 'По новинкам', value: 3},
+          {label: 'По скидкам', value: 4}
+        ],
+        selectedSize: {value: 0, label: 'Small'},
+        optionsSize: [
+          {label: 'Small', value: 0},
+          {label: 'Medium', value: 1},
+          {label: 'Big', value: 2},
+        ],
+        selectedProduct: null
+      }
+    },
+    computed: {
+      pageTitle() {
         return `${this.gender[0].toUpperCase()}${this.gender.slice(1)}`
+      },
+      productsByGender() {
+        return this.$store.getters.productsByGender(this.gender)
+      },
+      randomTop() {
+        return this.$store.getters.product(this.randomTopId)
+      },
+      randomBottom() {
+        return this.$store.getters.product(this.randomBottomId)
+      },
+      randomFootwear() {
+        return this.$store.getters.product(this.randomFootwearId)
+      }
     },
-    productsByGender() {
-      return this.$store.getters.productsByGender(this.gender)
+    methods: {
+      quickView(product, event){
+        this.selectedProduct=product;
+        this.$nextTick(()=>{
+          this.quickViewProduct(product,event);
+        });
+      },
+      randomProductIdByCategory(category) {
+        let allProductsInCategory = this.productsByGender.filter(p => p.category === category);
+        let randomIndex = Math.floor(Math.random() * allProductsInCategory.length);
+        return allProductsInCategory[randomIndex].id;
+      },
+      recommendRandomOutfit() {
+        this.randomTopId = this.randomProductIdByCategory('Shirts')
+        this.randomBottomId = this.randomProductIdByCategory('Pants')
+        this.randomFootwearId = this.randomProductIdByCategory('Shoes')
+      },
+      addToCart(product) {
+        this.$store.dispatch('addToCart', product.id)
+      },
+      addRemoveLike(itemId){
+        return this.$store.dispatch('addRemoveLike', itemId)
+      },
+      goToProduct(selectedProduct){
+        $('body').removeClass('overlay-layer');
+        this.$router.push(this.gender+'/products/'+selectedProduct.id);
+      }
     },
-    randomTop() {
-      return this.$store.getters.product(this.randomTopId)
-    },
-    randomBottom() {
-      return this.$store.getters.product(this.randomBottomId)
-    },
-    randomFootwear() {
-      return this.$store.getters.product(this.randomFootwearId)
-    }
-  },
-  methods: {
-    quickView(product, event){
-      this.selectedProduct=product;
-      this.$nextTick(()=>{
-        this.quickViewProduct(product,event);
-      });
-    },
-    randomProductIdByCategory(category) {
-      let allProductsInCategory = this.productsByGender.filter(p => p.category === category);
-      let randomIndex = Math.floor(Math.random() * allProductsInCategory.length);
-      return allProductsInCategory[randomIndex].id;
-    },
-    recommendRandomOutfit() {
-      this.randomTopId = this.randomProductIdByCategory('Shirts')
-      this.randomBottomId = this.randomProductIdByCategory('Pants')
-      this.randomFootwearId = this.randomProductIdByCategory('Shoes')
-    },
-    addToCart(product) {
-      this.$store.dispatch('addToCart', product.id)
-    },
-    addRemoveLike(itemId){
-      return this.$store.dispatch('addRemoveLike', itemId)
-    },
-    goToProduct(selectedProduct){
-      $('body').removeClass('overlay-layer');
-      this.$router.push(this.gender+'/products/'+selectedProduct.id);
-    }
-  },
-  mounted() {
+    mounted() {
 
+    }
   }
-}
 </script>
 
 <style lang="scss">
@@ -289,50 +287,50 @@ export default {
   .flex-col--align-center {
     align-items: center;
   }
-.gender-page {
-  padding-left: 224px;
-}
-.random-items-wrapper {
-  background: #fafafa;
-  text-align: center;
-  padding: 3rem;
-}
-.random-items {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-.random-items__item {
-  flex: 0 0 22.9999%;
-}
-.item-grid {
-  list-style: none;
-  display: flex;
-  align-items: flex-start;
-  /*justify-content: center;*/
-  flex-wrap: wrap;
-}
-.item-grid__item {
-  box-sizing: border-box;
-  text-align: center;
-  padding: 1rem;
-  flex: 0 0 22.9999%;
-  @media only screen and (max-width: 832px) {
-    flex: 0 0 50%;
+  .gender-page {
+    padding-left: 224px;
   }
-  @media only screen and (max-width: 475px) {
-    flex: 0 0 100%;
+  .random-items-wrapper {
+    background: #fafafa;
+    text-align: center;
+    padding: 3rem;
   }
-}
-.sortable {
-  margin-left: 35px;
-  padding: 8px;
-  text-align: -webkit-right;
-}
-.dropdown-menu {
-  padding: 0!important;
-}
-.btn {
-  font-size: inherit;
-}
+  .random-items {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .random-items__item {
+    flex: 0 0 22.9999%;
+  }
+  .item-grid {
+    list-style: none;
+    display: flex;
+    align-items: flex-start;
+    /*justify-content: center;*/
+    flex-wrap: wrap;
+  }
+  .item-grid__item {
+    box-sizing: border-box;
+    text-align: center;
+    padding: 1rem;
+    flex: 0 0 22.9999%;
+    @media only screen and (max-width: 832px) {
+      flex: 0 0 50%;
+    }
+    @media only screen and (max-width: 475px) {
+      flex: 0 0 100%;
+    }
+  }
+  .sortable {
+    margin-left: 35px;
+    padding: 8px;
+    text-align: -webkit-right;
+  }
+  .dropdown-menu {
+    padding: 0!important;
+  }
+  .btn {
+    font-size: inherit;
+  }
 </style>

@@ -608,11 +608,21 @@ export default new Vuex.Store({
           '53385-3.jpg',
         ]
       },
-    ]
+    ],
+    filters: []
   },
   mutations: {
     addToCart(state, payload) {
-      state.cart.push(Number(payload));
+      let product = state.cart.find(product => product.productId === Number(payload));
+      if (typeof product == 'object') {
+        state.cart.map((item) => {
+          if (item.productId === Number(payload))
+            item.quantity++;
+          return item;
+        });
+      }
+      else
+        state.cart.push({productId:Number(payload), quantity:1});
     },
     removeFromCart(state, payload) {
       let indexToDelete = state.cart.indexOf(Number(payload));
@@ -657,10 +667,11 @@ export default new Vuex.Store({
       return state.products.filter(p => p.id === Number(id))[0];
     },
     cartItems: (state) => {
-      return state.cart.map(
-        itemId => state.products.find(
-          product => product.id === itemId
-        )
+      return state.cart.map((item) => {
+            let product=state.products.find(product => product.id === item.productId);
+            if (typeof product=='object')
+              return {quantity:item.quantity, product:product}
+          }
       )
     },
     featuredProducts: (state) => {

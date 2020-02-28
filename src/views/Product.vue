@@ -1,6 +1,6 @@
 <template>
-  <div class=" col-lg-9 col-md-9">
-    <section class="wrapper">
+  <div class="wrapper">
+    <section class="page-wrapper">
       <div class="flex-col ">
         <div class="flex-col--2">
           <img  class="row main-img" :src="selectedImageUrl" alt="">
@@ -10,11 +10,11 @@
         </div>
         <div class="flex-col--2" >
           <h2>{{ product.name }}</h2><p style="margin-top: 0;font-size: x-large; color: #179a94;">${{ product.price }}</p>
-          <p><strong>Size:</strong> {{ product.size|capitalize}}</p>
+          <p><v-select style="width: 200px" :options="optionsSize" v-model="selectedSize"></v-select></p>
           <p><strong>Color:</strong> {{ product.color|capitalize}}</p>
           <button @click="addToCart" class="btn btn--grey">Add to Cart</button>
-          <img v-show="product.liked" @click="addRemoveLike(product.id)" class="like-product" src="../assets/img/like.png" height="24" width="24" alt=""/>
-          <img v-show="!product.liked" @click="addRemoveLike(product.id)" class="unlike-product" src="../assets/img/unlike.png" height="24" width="24" alt=""/>
+          <img v-show="product.liked" @click="addRemoveLike(product.id)" class="like-product" src="@/assets/img/like.png" height="24" width="24" alt=""/>
+          <img v-show="!product.liked" @click="addRemoveLike(product.id)" class="unlike-product" src="@/assets/img/unlike.png" height="24" width="24" alt=""/>
           <p><em>{{ product.quantity }} left in stock</em></p>
           <h3>Details</h3>
           <ul>
@@ -30,7 +30,7 @@
     <hr/>
     <div class="wrapper lenta">
       <section class="lenta-products">
-        <div class="slider" style="left: -10%">
+        <div class="slider" style="">
           <div v-for="product in productsByGender" :key="product.id"  class="item-grid__item cd-item slide-item">
             <img style="width: 98px; text-align: center" class="product-image" :src="makeImagePath(product)" alt="">
             <p class="product-title">{{ product.name }}</p>
@@ -45,15 +45,15 @@
     <div class="product-footer">
       <nav class="wrapper">
         <div class="nav nav-tabs" id="nav-tab" role="tablist">
-          <h4><a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Reviews (2)</a></h4>
-          <h4><a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Shipping & Delivery</a></h4>
+          <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true"><h4>Reviews (2)</h4></a>
+          <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false"><h4>Shipping & Delivery</h4></a>
         </div>
       </nav>
       <div class="tab-content" id="nav-tabContent">
         <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
-          <strong>2 reviews for Basic Korean-style coat</strong>
           <div class="auth-pages">
             <div class="auth-left">
+              <p><strong>2 reviews for {{product.name}}</strong></p>
               <div class="card">
                 <div class="card-body">
                   <div class="row">
@@ -64,17 +64,17 @@
                     <div class="col-md-10">
                       <p>
                         <a class="float-left" href="https://maniruzzaman-akash.blogspot.com/p/contact.html"><strong>Eric Watson</strong></a>
-                        <span class="float-right"><i class="text-warning fa fa-star"></i></span>
-                        <span class="float-right"><i class="text-warning fa fa-star"></i></span>
-                        <span class="float-right"><i class="text-warning fa fa-star"></i></span>
-                        <span class="float-right"><i class="text-warning fa fa-star"></i></span>
+                        <span class="float-right"><i class="text-info fa fa-star"></i></span>
+                        <span class="float-right"><i class="text-info fa fa-star"></i></span>
+                        <span class="float-right"><i class="text-info fa fa-star"></i></span>
+                        <span class="float-right"><i class="text-info fa fa-star"></i></span>
 
                       </p>
                       <div class="clearfix"></div>
                       <p>Lorem Ipsum is simply dummy text of the pr make  but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
-                      <p>
-                        <a class="float-right btn text-white btn-danger"> <i class="fa fa-heart"></i> Like</a>
-                      </p>
+<!--                      <p>-->
+<!--                        <a class="float-right btn text-white btn-danger"> <i class="fa fa-heart"></i> Like</a>-->
+<!--                      </p>-->
                     </div>
                   </div>
                 </div>
@@ -89,16 +89,16 @@
                     <div class="col-md-10">
                       <p>
                         <a class="float-left" href="https://maniruzzaman-akash.blogspot.com/p/contact.html"><strong>Edward Norton</strong></a>
-                        <span class="float-right"><i class="text-warning fa fa-star"></i></span>
-                        <span class="float-right"><i class="text-warning fa fa-star"></i></span>
-                        <span class="float-right"><i class="text-warning fa fa-star"></i></span>
-                        <span class="float-right"><i class="text-warning fa fa-star"></i></span>
+                        <span class="float-right"><i class="text-info fa fa-star"></i></span>
+                        <span class="float-right"><i class="text-info fa fa-star"></i></span>
+                        <span class="float-right"><i class="text-info fa fa-star"></i></span>
+                        <span class="float-right"><i class="text-info fa fa-star"></i></span>
                       </p>
                       <div class="clearfix"></div>
                       <p>Lorem Ipsum is simply dummy text of the pr make  but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
-                      <p>
-                        <a class="float-right btn text-white btn-danger"> <i class="fa fa-heart"></i> Like</a>
-                      </p>
+<!--                      <p>-->
+<!--                        <a class="float-right btn text-white btn-danger"> <i class="fa fa-heart"></i> Like</a>-->
+<!--                      </p>-->
                     </div>
                   </div>
                 </div>
@@ -135,10 +135,12 @@
           </div>
         </div>
         <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
-          Vestibulum curae torquent diam diam commodo parturient penatibus nunc dui adipiscing convallis bulum parturient suspendisse parturient a.Parturient in parturient scelerisque nibh lectus quam a natoque adipiscing a vestibulum hendrerit et pharetra fames.Consequat net
-          Vestibulum parturient suspendisse parturient a.Parturient in parturient scelerisque nibh lectus quam a natoque adipiscing a vestibulum hendrerit et pharetra fames.Consequat netus.
-          Scelerisque adipiscing bibendum sem vestibulum et in a a a purus lectus faucibus lobortis tincidunt purus lectus nisl class eros.Condimentum a et ullamcorper dictumst mus et tristique elementum nam inceptos hac vestibulum amet elit
-        </div>
+          <p style="margin: 30px auto;">
+            Vestibulum curae torquent diam diam commodo parturient penatibus nunc dui adipiscing convallis bulum parturient suspendisse parturient a.Parturient in parturient scelerisque nibh lectus quam a natoque adipiscing a vestibulum hendrerit et pharetra fames.Consequat net
+            Vestibulum parturient suspendisse parturient a.Parturient in parturient scelerisque nibh lectus quam a natoque adipiscing a vestibulum hendrerit et pharetra fames.Consequat netus.
+            Scelerisque adipiscing bibendum sem vestibulum et in a a a purus lectus faucibus lobortis tincidunt purus lectus nisl class eros.Condimentum a et ullamcorper dictumst mus et tristique elementum nam inceptos hac vestibulum amet elit
+          </p>
+         </div>
       </div>
     </div>
   </div>
@@ -153,12 +155,18 @@ export default {
   data() {
     return {
       showLike: false,
-      product: this.$store.getters.product(this.$route.params.id)
+      product: this.$store.getters.product(this.$route.params.productId),
+      selectedSize: {value: 0, label: 'Small'},
+      optionsSize: [
+        {label: 'Small', value: 0},
+        {label: 'Medium', value: 1},
+        {label: 'Big', value: 2},
+      ],
     }
   },
   methods: {
     addToCart() {
-      this.$store.dispatch('addToCart', this.$route.params.id)
+      this.$store.dispatch('addToCart', this.$route.params.productId)
     },
     addRemoveLike(itemId){
       return this.$store.dispatch('addRemoveLike', itemId)
@@ -193,13 +201,13 @@ export default {
   },
   computed: {
     gender() {
-      return this.$route.params.gender
+      return this.product.gender;
     },
     productsByGender() {
       return this.$store.getters.productsByGender(this.gender)
     },
     selectedImageUrl(){
-      return this.makeImagePath(this.product);
+      return this.product ? this.makeImagePath(this.product) : '';
     }
   }
 };
