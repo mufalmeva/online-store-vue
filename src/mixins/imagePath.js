@@ -1,7 +1,10 @@
 export const imagePath = {
   methods: {
     makeImagePath(product) {
-      return require(`../assets/img/products/${product.images[0]}`);
+      if (typeof product != 'string')
+        return require(`../assets/img/products/${product.images[0]}`);
+      else
+        return require(`../assets/img/products/${product}`);
     }
   }
 }

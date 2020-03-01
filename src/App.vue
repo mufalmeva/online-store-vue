@@ -1,8 +1,16 @@
 <template>
   <div id="app">
     <Navbar></Navbar>
-    <Sidebar v-show="!contentOnly"></Sidebar>
-    <router-view/>
+    <div class="container-fluid" style="padding-left: 30px;padding-right: 30px;">
+      <div class="row">
+        <Sidebar v-show="!contentOnly"></Sidebar>
+        <ProfileSidebar v-show="contentOnly && isProfile"></ProfileSidebar>
+        <router-view/>
+      </div>
+      <div class="row">
+        <div class="prefooter"></div>
+      </div>
+    </div>
     <Footer></Footer>
   </div>
 </template>
@@ -11,18 +19,21 @@
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import Sidebar from "./components/Sidebar";
+import ProfileSidebar from "./components/ProfileSidebar";
 
 export default {
   name: 'app',
-  components: {Sidebar, Footer, Navbar },
+  components: {ProfileSidebar, Sidebar, Footer, Navbar },
   data: function () {
     return {
-      contentOnly: false
+      contentOnly: false,
+      isProfile: false
     }
   },
   methods: {
     checkLayout(route) {
       this.contentOnly = (route && route.meta && route.meta.contentOnly);
+      this.isProfile = (route && route.meta && route.meta.isProfile);
     },
   },
   created() {
@@ -48,12 +59,20 @@ export default {
 a {
   text-decoration: none;
   color: #313131!important;
-  transition: all .3s ease;
+  /*transition: all .3s ease;*/
   &:hover {
     color: #42b983;
   }
 }
 ul li {
   list-style: none;
+}
+.like-product,.unlike-product {
+  margin-left: 15px;
+  cursor: pointer;
+}
+.like-product:hover,.unlike-product:hover {
+  height: 26px;
+  width: 26px;
 }
 </style>

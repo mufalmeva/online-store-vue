@@ -6,6 +6,17 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     cart: [],
+    wish: [],
+    currentOrders: [],
+    allOrders: [],
+    categories: [
+        "Shirts",
+        "Sweaters",
+        "Pants",
+        "Dresses",
+        "Shorts",
+        "Shoes"
+    ],
     products: [
       {
         name: "Crewneck T-Shirt",
@@ -18,6 +29,7 @@ export default new Vuex.Store({
         quantity: 10,
         dateAdded: "Tue Mar 24 2015 20:00:00 GMT-0400 (Eastern Daylight Time)",
         category: "Shirts",
+        liked: false,
         details: {
           material: "cotton",
           fit: "regular",
@@ -37,10 +49,11 @@ export default new Vuex.Store({
         price: 49.5,
         color: "red",
         size: "medium",
-        gender: "women",
+        gender: "men",
         quantity: 8,
         dateAdded: "Mon Mar 23 2015 20:00:00 GMT-0400 (Eastern Daylight Time)",
         category: "Sweaters",
+        liked: false,
         details: {
           material: "cotton",
           fit: "regular",
@@ -69,6 +82,7 @@ export default new Vuex.Store({
         quantity: 5,
         dateAdded: "Wed Mar 25 2015 20:00:00 GMT-0400 (Eastern Daylight Time)",
         category: "Pants",
+        liked: false,
         details: {
           material: "denim",
           fit: "slim",
@@ -94,6 +108,7 @@ export default new Vuex.Store({
         quantity: 5,
         dateAdded: "Wed Mar 25 2015 20:00:00 GMT-0400 (Eastern Daylight Time)",
         category: "Dresses",
+        liked: false,
         details: {
           material: "nylon",
           fit: "Fitted through the chest and waist, flare skirt.",
@@ -117,6 +132,7 @@ export default new Vuex.Store({
         quantity: 5,
         dateAdded: "Wed Mar 25 2015 20:00:00 GMT-0400 (Eastern Daylight Time)",
         category: "Shirts",
+        liked: false,
         details: {
           material: "cotton",
           fit: "Fitted shoulders and chest, straight through the waist and hip.",
@@ -140,6 +156,7 @@ export default new Vuex.Store({
         quantity: 10,
         dateAdded: "Wed Mar 25 2015 20:00:00 GMT-0400 (Eastern Daylight Time)",
         category: "Shirts",
+        liked: false,
         details: {
           material: "cotton",
           fit: "A little room through the chest, arms and waist.",
@@ -165,6 +182,7 @@ export default new Vuex.Store({
         quantity: 10,
         dateAdded: "Wed Mar 25 2015 20:00:00 GMT-0400 (Eastern Daylight Time)",
         category: "Shorts",
+        liked: false,
         details: {
           material: "cotton",
           fit: "Sits at the waist, slim through the thigh.",
@@ -180,7 +198,7 @@ export default new Vuex.Store({
       {
         name: "Bare High Block-Heel Sandal",
         id: 53369,
-        featured: false,
+        featured: true,
         price: 128.5,
         color: "black",
         size: 8,
@@ -188,6 +206,7 @@ export default new Vuex.Store({
         quantity: 10,
         dateAdded: "Wed Mar 25 2015 20:00:00 GMT-0400 (Eastern Daylight Time)",
         category: "Shoes",
+        liked: false,
         details: {
           material: "leather",
           fit: "Breathable synthetic lining. Insole with added stability in the heel.",
@@ -211,6 +230,7 @@ export default new Vuex.Store({
         quantity: 10,
         dateAdded: "Wed Mar 25 2015 20:00:00 GMT-0400 (Eastern Daylight Time)",
         category: "Shoes",
+        liked: false,
         details: {
           material: "suede",
           fit: "Our Advanced Comfort Technology insoles include shock absorption in the heel, arch support and breathable flex on the toe pads.",
@@ -234,6 +254,7 @@ export default new Vuex.Store({
         quantity: 9,
         dateAdded: "Wed Mar 26 2015 20:00:00 GMT-0400 (Eastern Daylight Time)",
         category: "Shoes",
+        liked: false,
         details: {
           material: "suede",
           fit: "Designed with lightweight, durable OrthoLite® performance insoles for breathable cushioning that wicks away moisture for the ultimate in comfort. Plus, these sneakers were also designed with Outlast® temperature-regulating technology, originally developed for NASA, for optimal thermal comfort.",
@@ -259,6 +280,7 @@ export default new Vuex.Store({
         quantity: 9,
         dateAdded: "Wed Mar 26 2015 20:00:00 GMT-0400 (Eastern Daylight Time)",
         category: "Pants",
+        liked: false,
         details: {
           material: "cotton",
           fit: "Our latest take on the timeless chino, made modern with ultra-soft, Italian stretch fabric for comfort, and garment dyed for an authentic, color-washed look.",
@@ -282,6 +304,7 @@ export default new Vuex.Store({
         quantity: 9,
         dateAdded: "Wed Mar 27 2015 20:00:00 GMT-0400 (Eastern Daylight Time)",
         category: "Shirts",
+        liked: false,
         details: {
           material: "cotton",
           fit: "A customer favorite, our Luxe Poplin shirts are specially washed for that perfectly soft, already worn-in feel that stays crisp and polished looking. This 100% cotton fabric is engineered to move with you and has a natural flexibility due to the unique construction of its yarn.",
@@ -305,6 +328,7 @@ export default new Vuex.Store({
         quantity: 9,
         dateAdded: "Wed Mar 29 2015 20:00:00 GMT-0400 (Eastern Daylight Time)",
         category: "Pants",
+        liked: false,
         details: {
           material: "cotton",
           fit: "Our menswear-inspired trouser",
@@ -328,6 +352,7 @@ export default new Vuex.Store({
         quantity: 5,
         dateAdded: "Wed Mar 11 2015 20:00:00 GMT-0400 (Eastern Daylight Time)",
         category: "Shoes",
+        liked: false,
         details: {
           material: "Italian Leather",
           fit: "Designed with lightweight, durable OrthoLite® performance insoles for breathable cushioning that wicks away moisture for the ultimate in comfort.",
@@ -351,6 +376,7 @@ export default new Vuex.Store({
         quantity: 6,
         dateAdded: "Wed Mar 11 2015 20:00:00 GMT-0400 (Eastern Daylight Time)",
         category: "Shoes",
+        liked: false,
         details: {
           material: "Flexible, suede upper.",
           fit: "Rubber outsole for maximum flexibility, reduced shock and better traction.",
@@ -377,6 +403,7 @@ export default new Vuex.Store({
         quantity: 6,
         dateAdded: "Thur Mar 12 2015 20:00:00 GMT-0400 (Eastern Daylight Time)",
         category: "Pants",
+        liked: false,
         details: {
           material: "96% cotton, 4% elastane.",
           fit: "Contour waistband for extra comfort.",
@@ -400,6 +427,7 @@ export default new Vuex.Store({
         quantity: 10,
         dateAdded: "Wed Mar 11 2015 20:00:00 GMT-0400 (Eastern Daylight Time)",
         category: "Shirts",
+        liked: false,
         details: {
           material: "100% cotton",
           fit: "Overall slim fit. A little more room though the shoulders and waist than our Grant Fit.",
@@ -423,6 +451,7 @@ export default new Vuex.Store({
         quantity: 8,
         dateAdded: "Wed Mar 11 2015 20:00:00 GMT-0400 (Eastern Daylight Time)",
         category: "Shirts",
+        liked: false,
         details: {
           material: "100% polyester.",
           fit: "Semi-fitted through the chest, relaxed through the waist.",
@@ -446,6 +475,7 @@ export default new Vuex.Store({
         quantity: 12,
         dateAdded: "Wed Mar 11 2015 20:00:00 GMT-0400 (Eastern Daylight Time)",
         category: "Shirts",
+        liked: false,
         details: {
           material: "100% polyester.",
           fit: "Semi-fitted through the chest, relaxed through the waist.",
@@ -469,6 +499,7 @@ export default new Vuex.Store({
         quantity: 6,
         dateAdded: "Wed Mar 11 2015 20:00:00 GMT-0400 (Eastern Daylight Time)",
         category: "Pants",
+        liked: false,
         details: {
           material: "64% polyester, 31% rayon, 5% elastane.",
           fit: "A sleek new pant in a modern fit. The Ryan offers a leg-lengthening slim-straight silhouette.",
@@ -492,6 +523,7 @@ export default new Vuex.Store({
         quantity: 6,
         dateAdded: "Wed Mar 11 2015 20:00:00 GMT-0400 (Eastern Daylight Time)",
         category: "Pants",
+        liked: false,
         details: {
           material: "91% cotton, 7.6% polyester, 1.4% spandex.",
           fit: "Mid rise (9.875\").Skinny through the hip, thigh, and leg.Ankle length.",
@@ -515,6 +547,7 @@ export default new Vuex.Store({
         quantity: 4,
         dateAdded: "Wed Mar 11 2015 20:00:00 GMT-0400 (Eastern Daylight Time)",
         category: "Shoes",
+        liked: false,
         details: {
           material: "100% leather",
           fit: "Breathable synthetic lining. Insole with added stability in the heel.",
@@ -538,6 +571,7 @@ export default new Vuex.Store({
         quantity: 8,
         dateAdded: "Wed Mar 11 2015 20:00:00 GMT-0400 (Eastern Daylight Time)",
         category: "Shoes",
+        liked: false,
         details: {
           material: "100% leather or suede",
           fit: "Flexible, suede or leather upper.",
@@ -561,6 +595,7 @@ export default new Vuex.Store({
         quantity: 10,
         dateAdded: "Wed Mar 11 2015 20:00:00 GMT-0400 (Eastern Daylight Time)",
         category: "Shoes",
+        liked: false,
         details: {
           material: "Soft, suede boot with playful bow details at the back, a rounded toe and skinny heel.",
           fit: "European sizes 36-40.",
@@ -573,51 +608,108 @@ export default new Vuex.Store({
           '53385-3.jpg',
         ]
       },
-    ]
+    ],
+    filters: {
+      gender: ''
+    }
   },
   mutations: {
     addToCart(state, payload) {
-      state.cart.push(Number(payload))
+      let product = state.cart.find(product => product.productId === Number(payload));
+      if (typeof product == 'object') {
+        state.cart.map((item) => {
+          if (item.productId === Number(payload))
+            item.quantity++;
+          return item;
+        });
+      }
+      else
+        state.cart.push({productId:Number(payload), quantity:1});
     },
     removeFromCart(state, payload) {
-      let indexToDelete = state.cart.indexOf(Number(payload));
-      state.cart.splice(indexToDelete, 1)
+      let product = state.cart.find(product => product.productId === Number(payload));
+      if (typeof product == 'object') {
+        state.cart.map((item) => {
+          if (item.productId === Number(payload))
+            item.quantity--;
+          return item;
+        });
+      }
+    },
+    removeAllFromCart(state, payload) {
+      let indexToDelete = state.cart.indexOf(state.cart.find(product => product.productId === Number(payload)));
+      state.cart.splice(indexToDelete, 1);
     },
     decrementProductInventory(state, payload) {
-      let product = state.products.find(product => product.id === Number(payload))
+      let product = state.products.find(product => product.id === Number(payload));
       product.quantity--;
     },
     incrementProductInventory(state, payload) {
-      let product = state.products.find(product => product.id === Number(payload))
+      let product = state.products.find(product => product.id === Number(payload));
       product.quantity++;
+    },
+    addRemoveLike(state, payload){
+      let product = state.products.find(product => product.id === Number(payload));
+      product.liked = !product.liked;
+      if (product.liked) {
+        state.wish.push(Number(payload));
+      }
+      else
+      {
+        let indexToDelete = state.wish.indexOf(Number(payload));
+        state.wish.splice(indexToDelete, 1);
+      }
     }
   },
   actions: {
     addToCart({ commit }, payload) {
-      commit('addToCart', payload),
-        commit('decrementProductInventory', payload)
+      commit('addToCart', payload);
+      commit('decrementProductInventory', payload);
     },
     removeFromCart({ commit }, payload) {
-      commit('removeFromCart', payload)
-      commit('incrementProductInventory', payload)
+      commit('removeFromCart', payload);
+      commit('incrementProductInventory', payload);
+    },
+    removeAllFromCart({ commit }, payload) {
+      commit('removeAllFromCart', payload);
+      commit('incrementProductInventory', payload);
+    },
+    addRemoveLike({commit}, payload){
+      commit( 'addRemoveLike', payload);
     }
   },
   getters: {
     product: (state) => (id) => {
-      return state.products.filter(p => p.id === Number(id))[0]
+      return state.products.filter(p => p.id === Number(id))[0];
     },
     cartItems: (state) => {
-      return state.cart.map(
-        itemId => state.products.find(
-          product => product.id === itemId
-        )
+      return state.cart.map((item) => {
+            let product=state.products.find(product => product.id === item.productId);
+            if (typeof product=='object')
+              return {quantity:item.quantity, product:product}
+          }
       )
     },
     featuredProducts: (state) => {
-      return state.products.filter(p => p.featured)
+      return state.products.filter(p => p.featured);
     },
     productsByGender: (state) => (gender) => {
-      return state.products.filter(p => p.gender === gender)
+      return state.products.filter(p => p.gender === gender);
+    },
+    wishList: (state) => {
+      return state.wish.map(
+          itemId => state.products.find(product => product.id === itemId)
+      )
+    },
+    currentOrders: (state) => {
+      return state.currentOrders.map(
+          itemId => state.products.find(product => product.id === itemId)
+      )
+    },
+    allOrders: (state) => {
+      return state.allOrders.map(
+          itemId => state.allOrders.find(product => product.id === itemId)
+      )
     }
   }
 });
