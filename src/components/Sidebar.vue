@@ -1,22 +1,19 @@
 <template>
-    <aside class="col-md-3">
+    <aside class="col-lg-3 col-md-3">
         <div class="sidebar">
             <div class="sidebar-menu">
                 <h4 class="sidebar-menu-title">Categories</h4>
-                <router-link class="link" to="/">Boots <span class="cat-nav-cnt">4749</span></router-link><br/>
-                <router-link class="link" to="/">Domestics shoes <span class="cat-nav-cnt">217</span></router-link><br/>
-                <router-link class="link" to="/">Sneakers <span class="cat-nav-cnt">7006</span></router-link><br/>
-                <router-link class="link" to="/">Moccasins and boatsiders <span class="cat-nav-cnt">167</span></router-link><br/>
-                <router-link class="link" to="/">Rubber shoes <span class="cat-nav-cnt">420</span></router-link><br/>
-                <router-link class="link" to="/">Sandals <span class="cat-nav-cnt">224</span></router-link><br/>
-                <router-link class="link" to="/">Slips-ons <span class="cat-nav-cnt">163</span></router-link><br/>
-                <router-link class="link" to="/">Shoes <span class="cat-nav-cnt">1641</span></router-link><br/>
-                <router-link class="link" to="/">Shoe care <span class="cat-nav-cnt">171</span></router-link><br/>
-                <router-link class="link" to="/">Espadrilles <span class="cat-nav-cnt">22</span></router-link><br/>
-                <router-link class="link" to="/">Shoelaces <span class="cat-nav-cnt">9</span></router-link><br/>
-                <router-link class="link" to="/">Аксессуары <span class="cat-nav-cnt">16929</span></router-link><br/>
-                <router-link class="link" to="/">Premium <span class="cat-nav-cnt">5807</span></router-link><br/>
-                <router-link class="link" to="/">Sport <span class="cat-nav-cnt">16302</span></router-link><br/>
+                <ul>
+                    <li v-for="category in categories" >
+                        <router-link class="link" :to="{name:gender+'ProductsByCategories', params:{category:category}}">{{category}} <span class="cat-nav-cnt">167</span></router-link>
+                    </li>
+                    <li><router-link class="link" :to="{name:gender+'ProductsByCategories', params:{category:'Accessories'}}">Аксессуары
+                        <span class="cat-nav-cnt">16929</span></router-link></li>
+                    <li><router-link class="link" :to="{name:gender+'ProductsByCategories', params:{category:'Premium'}}">Premium
+                        <span class="cat-nav-cnt">5807</span></router-link></li>
+                    <li><router-link class="link" :to="{name:gender+'ProductsByCategories', params:{category:'Sport'}}">Sport
+                        <span class="cat-nav-cnt">16302</span></router-link></li>
+                </ul>
             </div>
         </div>
     </aside>
@@ -24,7 +21,15 @@
 
 <script>
     export default {
-        name: "Sidebar"
+        name: "Sidebar",
+        computed: {
+            gender() {
+                return this.$store.state.filters['gender'];
+            },
+            categories(){
+                return this.$store.state.categories;
+            }
+        },
     }
 </script>
 

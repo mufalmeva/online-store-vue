@@ -6,12 +6,14 @@
         <div class="align-content-center">
           <h2 class="hor-line">Find out a category</h2>
         </div>
-          <section style="display: -moz-inline-box;" class="lenta-categories slider">
-              <div v-for="product in featuredProducts" :key="product.id"  class="lenta-item slide">
-                  <img style="width: 98px; text-align: center" class="product-image" :src="makeImagePath(product)" alt="">
-                  <p><a href="#0" class="">{{product.category}}</a></p>
-              </div>
-          </section>
+          <ul style="display: -moz-inline-box;" class="lenta-categories slider">
+            <li v-for="product in featuredProducts" :key="product.id"  class="lenta-item slide">
+              <router-link class="link" :to="{name:product.gender+'ProductsByCategories', params:{category:product.category}}">
+                <img style="width: 98px; text-align: center" class="product-image" :src="makeImagePath(product)" alt="">
+                <p><a href="#0" class="">{{product.category}}</a></p>
+              </router-link>
+            </li>
+          </ul>
       </div>
 
       <div class="wrapper random-items-wrapper">
@@ -19,40 +21,40 @@
         <p>Try these on for size!</p>
         <h4 class="text-left">For women</h4>
         <section class="random-items">
-          <router-link :to="{ name: 'womenProduct', params: { productId: randomWTop.id}}" class="random-items__item">
+          <a href="javascript:void(0)" @click="goToProduct(randomWTop)" class="random-items__item">
             <img class="product-image" :src="makeImagePath(randomWTop)" alt="">
             <p class="product-title">{{ randomWTop.name }}</p>
             <p><em>${{ randomWTop.price }}</em></p>
-          </router-link>
-          <router-link :to="{ name: 'womenProduct', params: { productId: randomWBottom.id}}" class="random-items__item">
+          </a>
+          <a href="javascript:void(0)" @click="goToProduct(randomWBottom)" class="random-items__item">
             <img class="product-image" :src="makeImagePath(randomWBottom)" alt="">
             <p class="product-title">{{ randomWBottom.name }}</p>
             <p><em>${{ randomWBottom.price }}</em></p>
-          </router-link>
-          <router-link :to="{ name: 'womenProduct', params: { productId: randomWFootwear.id}}" class="random-items__item">
+          </a>
+          <a href="javascript:void(0)" @click="goToProduct(randomWFootwear)" class="random-items__item">
             <img class="product-image" :src="makeImagePath(randomWFootwear)" alt="">
             <p class="product-title">{{ randomWFootwear.name }}</p>
             <p><em>${{ randomWFootwear.price }}</em></p>
-          </router-link>
+          </a>
         </section>
         <button class="btn btn--grey" @click="recommendRandomOutfitWomen">Shuffle</button>
         <h4 class="text-left">For men</h4>
         <section class="random-items">
-          <router-link :to="{ name: 'menProduct', params: { productId: randomMTop.id}}" class="random-items__item">
+          <a href="javascript:void(0)" @click="goToProduct(randomMTop)" class="random-items__item">
             <img class="product-image" :src="makeImagePath(randomMTop)" alt="">
             <p class="product-title">{{ randomMTop.name }}</p>
             <p><em>${{ randomMTop.price }}</em></p>
-          </router-link>
-          <router-link :to="{ name: 'menProduct', params: { productId: randomMBottom.id}}" class="random-items__item">
+          </a>
+          <a href="javascript:void(0)" @click="goToProduct(randomMBottom)" class="random-items__item">
             <img class="product-image" :src="makeImagePath(randomMBottom)" alt="">
             <p class="product-title">{{ randomMBottom.name }}</p>
             <p><em>${{ randomMBottom.price }}</em></p>
-          </router-link>
-          <router-link :to="{ name: 'menProduct', params: { productId: randomMFootwear.id}}" class="random-items__item">
+          </a>
+          <a href="javascript:void(0)" @click="goToProduct(randomMFootwear)" class="random-items__item">
             <img class="product-image" :src="makeImagePath(randomMFootwear)" alt="">
             <p class="product-title">{{ randomMFootwear.name }}</p>
             <p><em>${{ randomMFootwear.price }}</em></p>
-          </router-link>
+          </a>
         </section>
         <button class="btn btn--grey" @click="recommendRandomOutfitMen">Shuffle</button>
       </div>
@@ -84,7 +86,7 @@ export default {
       return this.$store.state.products;
     },
     featuredProducts: function() {
-      return this.$store.getters.featuredProducts.slice(0,4);
+      return this.$store.getters.featuredProducts;
     },
     categories: function() {
         return this.$store.state.categories;
@@ -120,7 +122,7 @@ export default {
         slidesToShow: 4,
         slidesToScroll: 1,
         autoplay: true,
-        autoplaySpeed: 1500,
+        autoplaySpeed: 2500,
         arrows: false,
         dots: false,
         pauseOnHover: true,
@@ -154,6 +156,9 @@ export default {
       this.randomBottomWId = this.randomProductIdByCategory('Pants', this.productsByWomen);
       this.randomFootwearWId = this.randomProductIdByCategory('Shoes', this.productsByWomen);
     },
+    goToProduct(product){
+      this.$router.push('/'+product.gender+'/'+product.category+'/'+product.id);
+    }
   }
 };
 </script>

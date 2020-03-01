@@ -1,6 +1,6 @@
 <template>
   <div class="wrapper">
-    <section class="page-wrapper">
+    <section class="">
       <div class="flex-col ">
         <div class="flex-col--2">
           <img  class="row main-img" :src="selectedImageUrl" alt="">
@@ -9,7 +9,16 @@
           </div>
         </div>
         <div class="flex-col--2" >
-          <h2>{{ product.name }}</h2><p style="margin-top: 0;font-size: x-large; color: #179a94;">${{ product.price }}</p>
+          <h2>{{ product.name }}</h2>
+          <p>
+            <i class="fa fa-star"></i>
+            <i class="fa fa-star"></i>
+            <i class="fa fa-star"></i>
+            <i class="fa fa-star"></i>
+            <i class="fa fa-star"></i>
+            <span style="margin-left: 25px">4.1</span>
+          </p>
+          <p style="margin-top: 0;font-size: x-large; color: #179a94;">${{ product.price }}</p>
           <p><v-select style="width: 200px" :options="optionsSize" v-model="selectedSize"></v-select></p>
           <p><strong>Color:</strong> {{ product.color|capitalize}}</p>
           <button @click="addToCart" class="btn btn--grey">Add to Cart</button>
@@ -208,6 +217,12 @@ export default {
     },
     selectedImageUrl(){
       return this.product ? this.makeImagePath(this.product) : '';
+    }
+  },
+  watch: {
+    selectedSize(newVal) {
+      if (!newVal)
+        this.selectedSize = {value: 0, label: 'Small'};
     }
   }
 };

@@ -1,6 +1,6 @@
 <template>
   <div class="col-lg-9 col-md-9">
-    <div class="col-lg-12 col-md-12">
+    <div class="">
       <h4 style="display: inline-block">{{ pageTitle }}</h4>
       <div class="sortable">
         <v-select style="letter-spacing: 0; float: right; min-width: 192px" :options="options" v-model="selected"></v-select>
@@ -120,8 +120,8 @@
         </div>
       </div>
       <ul class="wrapper item-grid cd-container">
-        <li v-for="product in productsByGender" :key="product.id" @mouseover="bindEvent()" @mouseout="unbindEvent()" class="item-grid__item cd-item">
-          <router-link :to="{ name: gender+'Product', params: { productId: product.id}}">
+        <li v-for="product in requestedProducts()" :key="product.id" @mouseover="bindEvent()" @mouseout="unbindEvent()" class="item-grid__item cd-item">
+          <router-link :to="{ name: gender+'Product', params: { category:product.category,productId: product.id}}">
             <img class="product-image" :src="makeImagePath(product)" alt="">
             <p class="product-title">{{ product.name }}</p>
             <p><em>${{ product.price }}</em></p>
@@ -129,7 +129,7 @@
           <span class="cd-trigger" @click="quickView(product, $event)">Quick View</span>
         </li>
       </ul>
-      <div class="cd-quick-view col-lg-12 col-md-12" v-if="selectedProduct">
+      <div class="cd-quick-view" v-if="selectedProduct">
         <div class="flex-col">
           <div class="flex-col--2">
             <img class="main-img" src="" alt="Product 1" />
@@ -141,9 +141,9 @@
           <div class="flex-col--2 cd-item-info">
             <div class="" >
               <h2>{{ selectedProduct.name }}</h2>
-              <p>Price: ${{ selectedProduct.price }}</p>
+              <p style="margin-top: 0;font-size: x-large; color: #179a94;">${{selectedProduct.price }}</p>
               <v-select style="width: 200px" :options="optionsSize" v-model="selectedSize"></v-select>
-              <p>Color: {{ selectedProduct.color }}</p>
+              <p>Color: {{ selectedProduct.color | capitalize}}</p>
               <button @click="addToCart(selectedProduct)" class="btn btn--grey">Add to Cart</button>
               <img v-show="selectedProduct.liked" @click="addRemoveLike(selectedProduct.id)" class="like-product" src="@/assets/img/like.png" height="24" width="24" alt=""/>
               <img v-show="!selectedProduct.liked" @click="addRemoveLike(selectedProduct.id)" class="unlike-product" src="@/assets/img/unlike.png" height="24" width="24" alt=""/>
@@ -169,17 +169,17 @@
       <h2>Our Recommendations</h2>
       <p>Try these on for size!</p>
       <section class="random-items">
-        <router-link :to="{ name: gender+'Product', params: { productId: randomTop.id}}" class="random-items__item">
+        <router-link :to="{ name: gender+'Product', params: {category:randomTop.category, productId: randomTop.id}}" class="random-items__item">
           <img class="product-image" :src="makeImagePath(randomTop)" alt="">
           <p class="product-title">{{ randomTop.name }}</p>
           <p><em>${{ randomTop.price }}</em></p>
         </router-link>
-        <router-link :to="{ name: gender+'Product', params: { productId: randomBottom.id}}" class="random-items__item">
+        <router-link :to="{ name: gender+'Product', params: {category: randomBottom.category, productId: randomBottom.id}}" class="random-items__item">
           <img class="product-image" :src="makeImagePath(randomBottom)" alt="">
           <p class="product-title">{{ randomBottom.name }}</p>
           <p><em>${{ randomBottom.price }}</em></p>
         </router-link>
-        <router-link :to="{ name: gender+'Product', params: { productId: randomFootwear.id}}" class="random-items__item">
+        <router-link :to="{ name: gender+'Product', params: {category: randomFootwear.category, productId: randomFootwear.id}}" class="random-items__item">
           <img class="product-image" :src="makeImagePath(randomFootwear)" alt="">
           <p class="product-title">{{ randomFootwear.name }}</p>
           <p><em>${{ randomFootwear.price }}</em></p>
@@ -198,7 +198,10 @@
   export default {
     name: "genderOverview",
     mixins: [ imagePath, viewProduct ],
-    props: ['gender'],
+    props: {
+      gender: {type: String, default:()=>''},
+      category: {type: String, default:()=>''}
+    },
     created() {
       this.recommendRandomOutfit();
     },
@@ -243,6 +246,9 @@
       }
     },
     methods: {
+      requestedProducts() {
+        return this.category.length ? this.productsByGender.filter(p => p.category === this.category) : this.productsByGender;
+      },
       quickView(product, event){
         this.selectedProduct=product;
         this.$nextTick(()=>{
@@ -267,11 +273,14 @@
       },
       goToProduct(selectedProduct){
         $('body').removeClass('overlay-layer');
-        this.$router.push(this.gender+'/products/'+selectedProduct.id);
+        this.$router.push('/'+this.gender+'/'+selectedProduct.category+'/'+selectedProduct.id);
       }
     },
-    mounted() {
-
+    watch: {
+      selectedSize(newVal) {
+        if (!newVal)
+          this.selectedSize = {value: 0, label: 'Small'};
+      }
     }
   }
 </script>
@@ -287,9 +296,6 @@
   .flex-col--align-center {
     align-items: center;
   }
-  .gender-page {
-    padding-left: 224px;
-  }
   .random-items-wrapper {
     background: #fafafa;
     text-align: center;
@@ -301,7 +307,7 @@
     justify-content: space-between;
   }
   .random-items__item {
-    flex: 0 0 22.9999%;
+    flex: 0 0 24.9999%;
   }
   .item-grid {
     list-style: none;
@@ -313,8 +319,8 @@
   .item-grid__item {
     box-sizing: border-box;
     text-align: center;
-    padding: 1rem;
-    flex: 0 0 22.9999%;
+    padding: 10px;
+    flex: 0 0 24.9999%;
     @media only screen and (max-width: 832px) {
       flex: 0 0 50%;
     }

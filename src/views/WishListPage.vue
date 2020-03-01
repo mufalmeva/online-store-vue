@@ -1,10 +1,10 @@
 <template>
-  <div class="col-lg-9 col-md-9">
+  <div class="wrapper container-fluid">
     <h4 style="display: inline-block">WishList</h4>
     <div class="sortable"></div>
     <ul v-if="wishListCount" class="wrapper item-grid cd-container">
       <li v-for="product in wishList" :key="product.id" class="item-grid__item cd-item">
-        <router-link :to="{ name: product.gender+'Product', params: { productId: product.id}}">
+        <router-link :to="{ name: product.gender+'Product', params: { category:product.category,productId: product.id}}">
           <img class="product-image" :src="makeImagePath(product)" alt="">
           <p class="product-title">{{ product.name }}</p>
           <p><em>${{ product.price }}</em></p>

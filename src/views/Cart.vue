@@ -24,9 +24,9 @@
                 </div>
               </div>
               <div style="width: 16.66667%;text-align: center;">
-                <button class="cart-button__round"><i class="fa fa-minus"></i></button>
+                <button class="cart-button__round" @click="cartProductDecrement(item.product)"><i class="fa fa-minus"></i></button>
                 <span style="margin: 0 9px;">{{item.quantity}}</span>
-                <button class="cart-button__round"><i class="fa fa-plus"></i></button>
+                <button class="cart-button__round" @click="cartProductIncrement(item.product)"><i class="fa fa-plus"></i></button>
               </div>
               <div style="width: 25%;text-align: center;">
                 <p>${{ item.product.price }}</p>
@@ -34,7 +34,7 @@
             </div>
             <div class="row">
               <button
-                      @click="removeFromCart(item.product.id)"
+                      @click="removeAllFromCart(item.product.id)"
                       class="btn cart-list__btn-remove">
                 Remove
               </button>
@@ -174,8 +174,14 @@ export default {
     }
   },
   methods: {
-    removeFromCart(itemId) {
-      this.$store.dispatch('removeFromCart', itemId);
+    removeAllFromCart(itemId) {
+      this.$store.dispatch('removeAllFromCart', itemId);
+    },
+    cartProductIncrement(product){
+      this.$store.dispatch('addToCart', product.id);
+    },
+    cartProductDecrement(product){
+      this.$store.dispatch('removeFromCart', product.id);
     },
   },
   watch: {

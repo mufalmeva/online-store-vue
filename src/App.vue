@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <Navbar></Navbar>
-    <div class="col-lg-12 col-md-12">
+    <div class="container-fluid" style="padding-left: 30px;padding-right: 30px;">
       <div class="row">
         <Sidebar v-show="!contentOnly"></Sidebar>
         <ProfileSidebar v-show="contentOnly && isProfile"></ProfileSidebar>
@@ -59,7 +59,7 @@ export default {
 a {
   text-decoration: none;
   color: #313131!important;
-  transition: all .3s ease;
+  /*transition: all .3s ease;*/
   &:hover {
     color: #42b983;
   }

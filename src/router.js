@@ -1,5 +1,6 @@
 import Vue from "vue";
 import Router from "vue-router";
+import store from "./store";
 import Home from "./views/Home.vue";
 import Product from "./views/Product.vue";
 import Cart from "./views/Cart.vue";
@@ -12,10 +13,14 @@ import PersonalAgreement from "./views/page/PersonalAgreement";
 import Contacts from "./views/page/Contacts";
 import WomenOverview from "./views/WomenOverview";
 import MenOverview from "./views/MenOverview";
+import LoginPage from "./views/LoginPage";
+import RegisterPage from "./views/RegisterPage";
+import MenProductsByCategories from "./views/MenProductsByCategories";
+import WomenProductsByCategories from "./views/WomenProductsByCategories";
 
 Vue.use(Router);
 
-export default new Router({
+const router =  new Router({
   mode: "history",
   base: process.env.BASE_URL,
   routes: [
@@ -38,42 +43,66 @@ export default new Router({
       }
     },
     {
-      path: 'women',
+      path: '/women',
       name: 'WomenOverview',
       component: {render (c) { return c('router-view') }},
       children: [
         {
-          path:'/women',
+          path:'',
           name: 'WomenOverview',
           component: WomenOverview
         },
         {
-          path: '/women/:productId',
-          name: 'womenProduct',
-          component: Product,
-          meta: {
-            contentOnly: true
-          }
-        },
+          path: ':category',
+          name: 'womenProductsByCategories',
+          component: {render (c) { return c('router-view') }},
+          children: [
+            {
+              path: '',
+              name: 'womenProductsByCategories',
+              component: WomenProductsByCategories
+            },
+            {
+              path: ':productId',
+              name: 'womenProduct',
+              component: Product,
+              meta: {
+                contentOnly: true
+              }
+            },
+          ]
+        }
       ]
     },
     {
-      path: 'men',
+      path: '/men',
       name: 'MenOverview',
       component: {render (c) { return c('router-view') }},
       children: [
         {
-          path:'/men',
+          path:'',
           name: 'MenOverview',
-          component: MenOverview
+          component: MenOverview,
         },
         {
-          path: '/men/:productId',
-          name: 'menProduct',
-          component: Product,
-          meta: {
-            contentOnly: true
-          }
+          path: ':category',
+          name: 'menProductsByCategories',
+          component: {render (c) { return c('router-view') }},
+          children: [
+            {
+              path: '',
+              name: 'menProductsByCategories',
+              component: MenProductsByCategories
+            },
+            {
+              path: ':productId',
+              name: 'menProduct',
+              component: Product,
+              meta: {
+                contentOnly: true
+              }
+            },
+          ]
         },
       ]
     },
@@ -105,19 +134,19 @@ export default new Router({
             isProfile: true
           },
         },
-        {
-          path: '/profile/wishlist',
-          name: 'WishListPage',
-          component: WishListPage,
-          meta: {
-            contentOnly: true,
-            isProfile: true
-          },
-        },
       ]
     },
     {
-      path: '/page/exchange',
+      path: '/wishlist',
+      name: 'WishListPage',
+      component: WishListPage,
+      meta: {
+        contentOnly: true,
+        isWishlist: true
+      },
+    },
+    {
+      path: '/exchange',
       name: 'ReturnAndExchange',
       component: ReturnAndExchange,
       meta: {
@@ -125,7 +154,7 @@ export default new Router({
       },
     },
     {
-      path: '/page/oferta',
+      path: '/oferta',
       name: 'Oferta',
       component: Oferta,
       meta: {
@@ -133,7 +162,7 @@ export default new Router({
       },
     },
     {
-      path: '/page/agreement',
+      path: '/agreement',
       name: 'PersonalAgreement',
       component: PersonalAgreement,
       meta: {
@@ -141,12 +170,43 @@ export default new Router({
       },
     },
     {
-      path: '/page/contacts',
+      path: '/contacts',
       name: 'Contacts',
       component: Contacts,
+      meta: {
+        contentOnly: true,
+      }
+    },
+    {
+      path: '/login',
+      name: 'Login',
+      component: LoginPage,
+      meta: {
+        contentOnly: true,
+      },
+    },
+    {
+      path: '/register',
+      name: 'Register',
+      component: RegisterPage,
       meta: {
         contentOnly: true,
       },
     }
   ]
 });
+router.beforeEach((to, from, next) => {
+  if (to.name === 'MenOverview'
+      || to.path === '/men'
+      || window.location.pathname.replace(/^\/([^\/]+).*/i,'$1')==='men') {
+    store.state.filters['gender'] = 'men';
+  }
+  if (to.name === 'WomenOverview'
+      || to.path === '/women'
+      || window.location.pathname.replace(/^\/([^\/]+).*/i,'$1')==='women') {
+    store.state.filters['gender'] = 'women';
+  }
+  next();
+});
+
+export default router;

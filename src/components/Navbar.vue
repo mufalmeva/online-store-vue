@@ -1,17 +1,28 @@
 <template>
-  <div class="container-fluid">
-    <nav id="nav" class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
         <div class="navbar-nav mr-auto">
-          <router-link to="/" class="nav-items__item">Home</router-link>
+        </div>
+      </div>
+      <div class="mx-auto order-0 flex-col--2" style="color: white!important;text-align: right">
+        <router-link :to="{name: 'Login'}" style="color: white!important;">Sign in</router-link>
+        /
+        <router-link :to="{name: 'Register'}" style="color: white!important;">Register</router-link>
+      </div>
+    </nav>
+    <nav id="nav" class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
+        <div class="navbar-nav mr-auto nav-items">
+          <router-link :to="{name: 'home'}" class="nav-items__item__left">Home</router-link>
           <router-link
                   :to="{ name: 'WomenOverview' }"
-                  class="nav-items__item"
+                  class="nav-items__item__left"
           >Women</router-link
           >
           <router-link
                   :to="{ name: 'MenOverview' }"
-                  class="nav-items__item"
+                  class="nav-items__item__left"
           >Men</router-link
           >
         </div>
@@ -21,14 +32,14 @@
         <h1 class="logo navbar-brand mx-auto">SAPATO</h1>
       </div>
       <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
-        <div class="navbar-nav ml-auto">
-          <router-link :to="{name:'WishListPage'}" class="nav-items__item js-basket hover-opacity" custom-popup-link="dynamic_basket">
+        <div class="navbar-nav ml-auto nav-items">
+          <router-link :to="{name:'WishListPage'}" class="nav-items__item__right js-basket hover-opacity" custom-popup-link="dynamic_basket">
           <span class="d-inline-block">
             <img src="@/assets/img/unlike.png" height="24" width="24" alt="" style="vertical-align: baseline">
           </span>
             <counter-badge :count="wishListCount"></counter-badge>
           </router-link>
-          <router-link :to="{name:'Profile', path:'/profile'}" class="nav-items__item js-basket hover-opacity" custom-popup-link="dynamic_basket">
+          <router-link :to="{name:'Profile', path:'/profile'}" class="nav-items__item__right js-basket hover-opacity" custom-popup-link="dynamic_basket">
             <span class="d-inline-block">
           <svg fill="currentColor" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 55 55" style="enable-background:new 0 0 55 55; width: 1.8em; display: block;" xml:space="preserve">
           <path d="M55,27.5C55,12.337,42.663,0,27.5,0S0,12.337,0,27.5c0,8.009,3.444,15.228,8.926,20.258l-0.026,0.023l0.892,0.752
@@ -66,7 +77,7 @@
           </svg>
         </span>
           </router-link>
-          <router-link :to="{name:'Cart', path:'/cart'}" class="nav-items__item js-basket hover-opacity" custom-popup-link="dynamic_basket">
+          <router-link :to="{name:'Cart', path:'/cart'}" class="nav-items__item__right js-basket hover-opacity" custom-popup-link="dynamic_basket">
         <span class="d-inline-block">
           <svg fill="currentColor" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 60 60" style="enable-background:new 0 0 60 60; width: 1.6em; display: block;" xml:space="preserve">
             <path d="M11.68,13l-0.833-5h-2.99C7.411,6.28,5.859,5,4,5C1.794,5,0,6.794,0,9s1.794,4,4,4c1.859,0,3.411-1.28,3.858-3h1.294l0.5,3
@@ -89,7 +100,7 @@
         <div class="navbar-nav mr-auto">
         </div>
       </div>
-      <div class="mx-auto order-0 flex-col--2">
+      <div class="mx-auto order-0 flex-col--2 nav-items">
         <input class="search-container" type="text" placeholder="Search..." name="search"/>
         <span class="focus-border"></span>
       </div>
@@ -140,7 +151,7 @@ export default {
       $('.focus-border').css({
         'top': container.offset().top - (container.closest('.navbar').offset().top-container.height()) +1+'px',
         'left': container.offset().left - container.closest('.navbar').offset().left + 'px',
-        'width': container.width() + 'px'
+        'width': container.width() +16+'px'
       });
       $('span[class=focus-border]').addClass('search-onfocus');
     });
@@ -150,16 +161,25 @@ export default {
       });
       $('.focus-border').removeClass('search-onfocus');
     });
-  }
+    $(window).on('scroll',function (){
+      let header = document.getElementById("nav");
+      let sticky = header.offsetTop;
+      if (window.pageYOffset > sticky) {
+        header.classList.add('sticky');
+      } else {
+        header.classList.remove('sticky');
+      }
+    });
+  },
 };
 </script>
 <style scoped lang="scss">
   .focus-border{
     left: inherit; width: 0; height: 2px; background-color: #3399FF; transition: 0.4s;}
   .search-container {
-    border-top: none;
-    border-left: none;
-    border-right: none;
+    border: 1px solid #d6d6d6;
+    height: 2rem;
+    padding-left: 1rem;
     width: -webkit-fill-available;
     &:focus {
       outline: none;
@@ -184,14 +204,25 @@ export default {
 }
 .nav-items {
   justify-content: flex-start;
-  /*display: flex;*/
+  min-height: 35px;
 }
 .nav-brand{
   justify-content: flex-end;
 }
-.nav-items__item {
+.nav-items__item__left {
   margin-left: 2rem;
   position: relative;
+}
+.nav-items__item__right {
+  margin-right: 2rem;
+  position: relative;
+}
+.sticky {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  border-bottom: 2px solid #edeeef;
+  z-index: 1;
 }
 ul {
   padding-left: 0;

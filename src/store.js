@@ -198,7 +198,7 @@ export default new Vuex.Store({
       {
         name: "Bare High Block-Heel Sandal",
         id: 53369,
-        featured: false,
+        featured: true,
         price: 128.5,
         color: "black",
         size: 8,
@@ -609,7 +609,9 @@ export default new Vuex.Store({
         ]
       },
     ],
-    filters: []
+    filters: {
+      gender: ''
+    }
   },
   mutations: {
     addToCart(state, payload) {
@@ -625,7 +627,17 @@ export default new Vuex.Store({
         state.cart.push({productId:Number(payload), quantity:1});
     },
     removeFromCart(state, payload) {
-      let indexToDelete = state.cart.indexOf(Number(payload));
+      let product = state.cart.find(product => product.productId === Number(payload));
+      if (typeof product == 'object') {
+        state.cart.map((item) => {
+          if (item.productId === Number(payload))
+            item.quantity--;
+          return item;
+        });
+      }
+    },
+    removeAllFromCart(state, payload) {
+      let indexToDelete = state.cart.indexOf(state.cart.find(product => product.productId === Number(payload)));
       state.cart.splice(indexToDelete, 1);
     },
     decrementProductInventory(state, payload) {
@@ -656,6 +668,10 @@ export default new Vuex.Store({
     },
     removeFromCart({ commit }, payload) {
       commit('removeFromCart', payload);
+      commit('incrementProductInventory', payload);
+    },
+    removeAllFromCart({ commit }, payload) {
+      commit('removeAllFromCart', payload);
       commit('incrementProductInventory', payload);
     },
     addRemoveLike({commit}, payload){

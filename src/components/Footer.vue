@@ -10,12 +10,12 @@
                 </div>
             <div class="footer-menu">
                     <ul class="footer-menu-list" style="display: inline-flex; flex-wrap: wrap">
-                        <li><a class="footer-menu-item" href="/page/oferta">Политика конфиденциальности и оферта</a></li>
-                        <li><a class="footer-menu-item" href="/page/agreement">Пользовательское соглашение</a></li>
-                        <li><a class="footer-menu-item" href="/page/exchange">Условия обмена и возврата</a></li>
-                        <li><a class="footer-menu-item" href="/page/feedback">Обратная связь</a></li>
-                        <li><a class="footer-menu-item" href="/collection">Каталог</a></li>
-                        <li><a class="footer-menu-item" href="/page/contacts">Контакты</a></li>
+                        <li><router-link class="footer-menu-item" :to="{name: 'Oferta'}">Политика конфиденциальности и оферта</router-link></li>
+                        <li><router-link class="footer-menu-item" :to="{name: 'PersonalAgreement'}">Пользовательское соглашение</router-link></li>
+                        <li><router-link class="footer-menu-item" :to="{name: 'ReturnAndExchange'}">Условия обмена и возврата</router-link></li>
+                        <li><router-link class="footer-menu-item" :to="{name: ''}">Обратная связь</router-link></li>
+                        <li><router-link class="footer-menu-item" :to="{name: ''}">Каталог</router-link></li>
+                        <li><router-link class="footer-menu-item" :to="{name: 'Contacts'}">Контакты</router-link></li>
                     </ul>
                 </div>
             <div class="footer-social">
@@ -52,13 +52,13 @@
                         <a class="" href="callto:"></a>
                     </div>
                     <div class="m-b-30">
-                        <a class="js-modal bold-border" href="#feedback-modal">Обратный звонок</a>
+                        <router-link :to="{name: ''}" class="js-modal bold-border" href="#feedback-modal">Обратный звонок</router-link>
                     </div>
                 </div>
         </div>
         <hr/>
         <div class="footer-app_name">
-            <small><a href="/">Интернет-магазин SAPATO</a></small>
+            <small><router-link :to="{name: 'home'}">Интернет-магазин SAPATO</router-link></small>
         </div>
     </div>
 </template>

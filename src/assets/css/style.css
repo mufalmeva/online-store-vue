@@ -436,6 +436,7 @@ li .selected{
   -webkit-transition: -webkit-transform .3s 0s, visibility 0s .3s;
   -moz-transition: -moz-transform .3s 0s, visibility 0s .3s;
   transition: transform .3s 0s, visibility 0s .3s;
+  z-index: 1;
 }
 .cd-close::before, .cd-close::after {
   /* close icon in css */
