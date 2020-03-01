@@ -29,7 +29,6 @@ Vue.component('coupon', ApplyCoupon);
 Vue.component('gender-overview', GenderOverview);
 
 Vue.config.productionTip = false;
-Vue.config.baseUrl=process.env.BASE_URL;
 
 Vue.filter('capitalize', function (value) {
   if (!value) return '';
