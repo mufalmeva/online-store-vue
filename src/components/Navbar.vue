@@ -29,7 +29,7 @@
       </div>
       <div class="mx-auto order-0">
         <!--    Logo area in the centre-->
-        <h1 class="logo navbar-brand mx-auto">SAPATO</h1>
+        <h1 class="logo navbar-brand mx-auto">Vue online store</h1>
       </div>
       <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
         <div class="navbar-nav ml-auto nav-items">

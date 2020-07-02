@@ -3,8 +3,8 @@
         <div class="container justify-content-center">
             <div  class="footer-title justify-content-center" style="text-align: center">
                     <div class="m-b-20">
-                        <a href="/" title="Sapato">
-                            SAPATO
+                        <a href="/" title="Vue online store">
+                            Vue online store
                         </a>
                     </div>
                 </div>
@@ -58,7 +58,7 @@
         </div>
         <hr/>
         <div class="footer-app_name">
-            <small><router-link :to="{name: 'home'}">Интернет-магазин SAPATO</router-link></small>
+            <small><router-link :to="{name: 'home'}">Vue online store</router-link></small>
         </div>
     </div>
 </template>

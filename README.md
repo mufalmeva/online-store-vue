@@ -1,4 +1,4 @@
-# Sapato-frontend
+# Vue online store
 
 ## Project setup
 ```
